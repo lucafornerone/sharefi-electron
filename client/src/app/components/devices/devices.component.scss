@@ -1,0 +1,10 @@
+/* DevicesComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+app-device-info {
+	outline: none;
+	display: inline-block;
+	margin-right: $base-padding;
+	margin-bottom: $base-padding;
+}

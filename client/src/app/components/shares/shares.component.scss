@@ -1,0 +1,22 @@
+/* SharesComponent's scss */
+
+#shares-component-table {
+
+	// Grid columns
+	.row-checkbox {
+		width: 10%;
+		min-width: 50px;
+	}
+	.row-type {
+		width: 10%;
+		max-width: 10%;
+	}
+	.row-name {
+		width: 40%;
+		max-width: 30%;
+	}
+	.row-tag {
+		width: 40%;
+		max-width: 35%;
+	}
+}

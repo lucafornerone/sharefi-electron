@@ -1,0 +1,45 @@
+/* App's dark theme scss */
+
+@import './app-variables.scss';
+
+$dark-border: 1px solid #eee;
+$dark-color-nav-selected: #111111; // #3c4b67;
+$dark-filter-invert: invert($filter-invert) hue-rotate($filter-hue-rotate);
+$dark-filter-revert: invert($filter-revert) hue-rotate($filter-hue-rotate);
+$dark-modal-background: rgba(255, 255, 255, 0.6);
+
+body#theme-dark {
+	// Use filter to set dark theme
+	filter: $dark-filter-invert;
+	* {
+		// Remove shadow to all elements
+		box-shadow: none !important;
+	}
+	.language-icon {
+		// Revert flag icon to set original colors
+		filter: $dark-filter-revert;
+	}
+	#loader-component-wrapper video {
+		// Revert loader gif colors
+		filter: hue-rotate($filter-hue-rotate);
+	}
+	mat-card.device-info-component-card,
+	.header-component-language-menu,
+	.download-component-interrupt-menu {
+		// Without border the item disappears
+		border: $dark-border;
+	}
+	.mat-list-single-selected-option {
+		// Page selected background
+		background: $dark-color-nav-selected !important;
+		color: white !important;
+	}
+	#nav-component-wrapper img {
+		// Nav logo img
+		filter: invert($filter-invert) hue-rotate($filter-hue-rotate);
+	}
+	.cdk-global-overlay-wrapper {
+		// Modal background
+		background-color: $dark-modal-background !important;
+	}
+}

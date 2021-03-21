@@ -1,0 +1,34 @@
+<!--
+ * DevicesComponent's html
+ -->
+
+<mat-toolbar>
+	<button mat-icon-button (click)="findDevices()" [matTooltip]="'generic.refresh' | translate" matTooltipPosition="above">
+		<mat-icon>
+			<!-- Refresh icon -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-clockwise app-icon" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+				<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+			</svg>
+		</mat-icon>
+	</button>
+	<span>{{ 'devices.title' | translate }}</span>
+</mat-toolbar>
+
+<div class="router-main" style="overflow-y:auto;">
+
+	<!-- Device list -->
+	<app-device-info *ngFor="let device of devices"
+		[name]="device.name"
+		[os]="device.os"
+		[items]="device.items"
+		[ip]="device.ip"
+		[mac]="device.mac"
+		(click)="handleNavigateToDevice(device)"
+		[routerLink]="[deviceRouteUrl, device.ip]">
+	</app-device-info>
+
+	<!-- No devices found -->
+	<p *ngIf="devices.length === 0">{{ 'devices.notFound' | translate }}</p>
+
+</div>

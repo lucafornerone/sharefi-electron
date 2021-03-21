@@ -1,0 +1,36 @@
+/* App's base scss */
+
+@import './app-variables.scss';
+
+html,
+body {
+	height: 100%;
+}
+html {
+	// Min app size
+	min-height: 475px;
+	min-width: 650px;
+	overflow: auto;
+}
+body {
+	margin: 0;
+	font-family: Roboto, 'Helvetica Neue', sans-serif;
+	background-color: white;
+}
+* {
+	box-sizing: border-box;
+	&::-webkit-scrollbar {
+		width: 11px;
+		height: 11px;
+	}
+	scrollbar-width: thin;
+	scrollbar-color: $color-border white;
+	&::-webkit-scrollbar-track {
+		background: white;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: $color-border;
+		border-radius: 6px;
+		border: 3px solid white;
+	}
+}

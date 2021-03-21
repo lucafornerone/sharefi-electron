@@ -1,0 +1,108 @@
+<!--
+ * SharesComponent's html
+ -->
+
+<mat-toolbar>
+	<button mat-icon-button (click)="loadOwnSharedItems()" [matTooltip]="'generic.refresh' | translate" matTooltipPosition="above">
+		<mat-icon>
+			<!-- Refresh icon -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-clockwise app-icon" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+				<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+			</svg>
+		</mat-icon>
+	</button>
+	<span>{{ 'shares.title' | translate }}</span>
+	<span class="toolbar-spacer"></span>
+	<button mat-icon-button (click)="handleClickShareFile()" [matTooltip]="'shares.file' | translate" matTooltipPosition="left">
+		<mat-icon>
+			<!-- Share file -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark-plus app-icon" viewBox="0 0 16 16">
+				<path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z" />
+				<path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+			</svg>
+		</mat-icon>
+	</button>
+	<button mat-icon-button (click)="handleClickShareFolder()" [matTooltip]="'shares.folder' | translate" matTooltipPosition="left">
+		<mat-icon>
+			<!-- Share folder -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder-plus app-icon" viewBox=" 0 0 16 16">
+				<path d="M.5 3l.04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.684.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z" />
+				<path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z" />
+			</svg>
+		</mat-icon>
+	</button>
+	<button mat-icon-button [disabled]="selection.selected.length === 0" (click)="handleClickRemoveSelectedShares()" [matTooltip]="'shares.remove' | translate" matTooltipPosition="left">
+		<mat-icon>
+			<!-- Remove all selected shared items -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-dash-circle app-icon" viewBox="0 0 16 16">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+			</svg>
+		</mat-icon>
+	</button>
+</mat-toolbar>
+
+<div class="router-main">
+
+	<app-tag-filter (change)="applyFilter($event)"></app-tag-filter>
+
+	<div class="table-wrapper">
+		<table mat-table [dataSource]="dataSource" matSort id="shares-component-table">
+
+			<!-- Checkbox column -->
+			<ng-container matColumnDef="select">
+				<th class="row-checkbox" mat-header-cell *matHeaderCellDef>
+					<mat-checkbox (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected()"
+						[indeterminate]="selection.hasValue() && !isAllSelected()">
+					</mat-checkbox>
+				</th>
+				<td class="row-checkbox" mat-cell *matCellDef="let row">
+					<mat-checkbox (click)="$event.stopPropagation()"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row)">
+					</mat-checkbox>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-name">{{ 'table.name' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-name">
+					<span *ngIf="row.type === itemService.availableItemType.FILE">{{row.fullName}}</span>
+					<span *ngIf="row.type === itemService.availableItemType.FOLDER">{{row.name}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="tag">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-tag">{{ 'table.tag' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-tag">{{row.tag}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="type">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-type">{{ 'table.type' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-type table-row-icon">
+					<svg *ngIf="row.type === itemService.availableItemType.FILE" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+						<path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+					</svg>
+					<svg *ngIf="row.type === itemService.availableItemType.FOLDER" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+						<path d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z" />
+					</svg>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+			</tr>
+
+			<!-- Row shown when there is no matching data -->
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" colspan="4">{{ 'table.noElements' | translate }}</td>
+			</tr>
+
+		</table>
+
+		<mat-paginator [pageSize]="pageSize"></mat-paginator>
+	</div>
+
+</div>

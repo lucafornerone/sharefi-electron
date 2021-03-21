@@ -1,0 +1,36 @@
+/* DeviceComponent's scss */
+
+#device-component-device-name {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	min-width: 200px;
+}
+
+#device-component-table {
+	// Grid columns
+	.row-checkbox {
+		width: 10%;
+		min-width: 50px;
+	}
+	.row-type {
+		width: 10%;
+		max-width: 10%;
+	}
+	.row-name {
+		width: 30%;
+		max-width: 30%;
+	}
+	.row-size {
+		width: 15%;
+		max-width: 15%;
+	}
+	td.row-size {
+		padding-right: 12px;
+		text-align: right;
+	}
+	.row-tag {
+		width: 35%;
+		max-width: 35%;
+	}
+}

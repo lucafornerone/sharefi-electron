@@ -1,0 +1,11 @@
+/* ShareDialogComponent's scss */
+
+.share-dialog-component-tag {
+	width: 100%;
+}
+.mat-dialog-actions {
+	justify-content: flex-end;
+	mat-spinner {
+		margin-right: 12px;
+	}
+}

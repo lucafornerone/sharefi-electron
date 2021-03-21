@@ -1,0 +1,22 @@
+/* App's scss variables */
+
+// sizing
+$height-header: 64px;
+$height-toolbar: 64px;
+$height-grid-filter: 64px;
+$height-grid-paginator: 64px;
+$width-nav: 180px;
+$base-padding: 16px;
+
+// colors
+$color-background: #fff;
+$color-border: #dadce0;
+$color-icon: #4285f4;
+$color-nav-selected: #e8f0fe;
+$loader-background: rgba(255, 255, 255, 1);
+$offline-background: rgba(255, 255, 255, 0.9);
+
+// dark theme
+$filter-invert: 95%;
+$filter-revert: 100%;
+$filter-hue-rotate: 180deg;

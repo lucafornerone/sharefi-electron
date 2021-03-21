@@ -1,0 +1,17 @@
+/* App's toolbar scss */
+
+@import './app-variables.scss';
+
+mat-toolbar {
+	background: $color-background !important;
+	.toolbar-spacer {
+		flex: 1 1 auto;
+	}
+}
+.router-main {
+	height: calc(100% - #{$height-toolbar});
+	min-height: 275px;
+	width: 100%;
+	padding: $base-padding;
+	position: relative;
+}

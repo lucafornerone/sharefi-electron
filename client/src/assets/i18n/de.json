@@ -1,0 +1,64 @@
+{
+	"generic": {
+		"refresh": "Aktualisierung",
+		"close": "Schließen",
+		"wired": "Verdrahtet"
+	},
+	"nav": {
+		"devices": "Geräte",
+		"shares": "Anteile",
+		"download": "Downloads"
+	},
+	"devices": {
+		"title": "Verbundene Geräte",
+		"notFound": "Keine Geräte gefunden"
+	},
+	"table": {
+		"tagFilter": "Nach Tag filtern",
+		"type": "Typologie",
+		"name": "Vorname",
+		"size": "Abmessungen / Elemente",
+		"tag": "Tag",
+		"noElements": "Keine Elemente",
+		"of": "von",
+		"from": "Gerät",
+		"downloaded": "Heruntergeladen",
+		"status": "Zustand"
+	},
+	"download": {
+		"title": "Meine downloads",
+		"individual": "Artikel einzeln herunterladen",
+		"zip": "Als einzelne Zip herunterladen",
+		"elements": "elemente",
+		"remove": "Ausgewählte Objekte entfernen",
+		"stop": "Beenden Sie den Download aller Elemente",
+		"filter": "Filter nach Gerät kommen",
+		"interrupt": "Halt",
+		"download": "Herunterladen",
+		"status": {
+			"started": "Gestartet",
+			"inProgress": "In download",
+			"ended": "Abgeschlossen",
+			"error": "Fehler",
+			"interrupted": "Unterbrochen"
+		}
+	},
+	"shares": {
+		"title": "Meine aktien",
+		"file": "Dateien freigeben",
+		"folder": "Ordner teilen",
+		"remove": "Entfernen Sie die Freigabe ausgewählter Elemente",
+		"dialog": {
+			"share": "Teilen",
+			"file": "datei",
+			"folder": "mappe",
+			"folders": "ordner",
+			"tag": "Geben Sie ein Tag ein, um diese Freigabe zu identifizieren",
+			"button": "Aktie"
+		}
+	},
+	"loader": {
+		"search": "Auf der Suche nach Geräten...",
+		"error": "Fehler beim Öffnen der Anwendung"
+	}
+}

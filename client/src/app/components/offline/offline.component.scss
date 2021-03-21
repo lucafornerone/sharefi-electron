@@ -1,0 +1,25 @@
+/* OfflineComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+#offline-component-wrapper {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background-color: $offline-background;
+	overflow: hidden;
+	position: relative;
+	img {
+		margin: 0 auto;
+		width: 70%;
+		max-width: 1080px;
+	}
+	/* Offline info */
+	p {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: $base-padding;
+		text-align: center;
+	}
+}

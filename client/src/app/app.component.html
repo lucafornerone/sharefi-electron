@@ -1,0 +1,18 @@
+<!--
+ * Angular's auto generated html
+ -->
+
+<header>
+	<app-header></app-header>
+</header>
+
+<nav>
+	<app-nav></app-nav>
+</nav>
+
+<section>
+	<router-outlet></router-outlet>
+</section>
+
+<app-loader *ngIf="networkService.isOnline() && loaderService.isVisible()"></app-loader>
+<app-offline *ngIf="!networkService.isOnline()"></app-offline>

@@ -1,0 +1,64 @@
+{
+	"generic": {
+		"refresh": "Actualizar",
+		"close": "Cerrar",
+		"wired": "Cableado"
+	},
+	"nav": {
+		"devices": "Dispositivos",
+		"shares": "Comparte",
+		"download": "Downloads"
+	},
+	"devices": {
+		"title": "Dispositivos conectados",
+		"notFound": "No se encontraron dispositivos"
+	},
+	"table": {
+		"tagFilter": "Filtrar por etiqueta",
+		"type": "Tipología",
+		"name": "Nombre",
+		"size": "Tamaño / Elementos",
+		"tag": "Etiqueta",
+		"noElements": "Sin elementos",
+		"of": "de",
+		"from": "Dispositivo",
+		"downloaded": "Descargado",
+		"status": "Estado"
+	},
+	"download": {
+		"title": "Mis descargas",
+		"individual": "Descargar elementos individualmente",
+		"zip": "Descargar como zip único",
+		"elements": "elementos",
+		"remove": "Eliminar los elementos seleccionados",
+		"stop": "Dejar de descargar todos los elementos",
+		"filter": "Filtrar por dispositivo próximo",
+		"interrupt": "Detener",
+		"download": "Descargar",
+		"status": {
+			"started": "Empezado",
+			"inProgress": "En descarga",
+			"ended": "Terminado",
+			"error": "Error",
+			"interrupted": "Interrumpido"
+		}
+	},
+	"shares": {
+		"title": "Mis acciones",
+		"file": "Compartir archivos",
+		"folder": "Compartir carpeta",
+		"remove": "Eliminar el uso compartido de elementos seleccionados",
+		"dialog": {
+			"share": "Para compartir",
+			"file": "archivo",
+			"folder": "carpeta",
+			"folders": "carpetas",
+			"tag": "Ingrese una etiqueta para identificar este recurso compartido",
+			"button": "Partager"
+		}
+	},
+	"loader": {
+		"search": "Buscando dispositivos...",
+		"error": "Error al abrir la aplicación"
+	}
+}

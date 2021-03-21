@@ -1,0 +1,64 @@
+{
+	"generic": {
+		"refresh": "Rafraîchir",
+		"close": "Fermer",
+		"wired": "Filaire"
+	},
+	"nav": {
+		"devices": "Dispositifs",
+		"shares": "Actions",
+		"download": "Downloads"
+	},
+	"devices": {
+		"title": "Des appareils connectés",
+		"notFound": "Aucun périphérique trouvé"
+	},
+	"table": {
+		"tagFilter": "Filtrer par tag",
+		"type": "Typologie",
+		"name": "Nom",
+		"size": "Taille / Éléments",
+		"tag": "Tag",
+		"noElements": "Aucun élément",
+		"of": "de",
+		"from": "Dispositif",
+		"downloaded": "Téléchargé",
+		"status": "État"
+	},
+	"download": {
+		"title": "Mes téléchargements",
+		"individual": "Télécharger les éléments individuellement",
+		"zip": "Télécharger sous forme de zip unique",
+		"elements": "éléments",
+		"remove": "Supprimer les éléments sélectionnés",
+		"stop": "Arrêter de télécharger tous les éléments",
+		"filter": "Filtrer par appareil à venir",
+		"interrupt": "Arrêtez",
+		"download": "Télécharger",
+		"status": {
+			"started": "Commencé",
+			"inProgress": "En download",
+			"ended": "Terminé",
+			"error": "Erreur",
+			"interrupted": "Interrompu"
+		}
+	},
+	"shares": {
+		"title": "Mes partages",
+		"file": "Partager des fichiers",
+		"folder": "Dossier de partage",
+		"remove": "Supprimer le partage des éléments sélectionnés",
+		"dialog": {
+			"share": "Partager",
+			"file": "fichier",
+			"folder": "dossier",
+			"folders": "dossiers",
+			"tag": "Saisissez une balise pour identifier ce partage",
+			"button": "Condividi"
+		}
+	},
+	"loader": {
+		"search": "Recherche d'appareils...",
+		"error": "Erreur lors de l'ouverture de l'application"
+	}
+}

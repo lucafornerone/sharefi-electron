@@ -1,0 +1,32 @@
+/* App's positioning scss */
+
+.self-align-center-external-wrapper {
+	width: 100%;
+	height: 100%;
+	display: table;
+	.self-align-center-internal-wrapper {
+		width: 100%;
+		height: 100%;
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
+span.mat-badge-content {
+	top: 3px !important;
+	right: 3px !important;
+}
+// Graphical notification to the user after the change on a page
+mat-list-option {
+	.mat-list-text,
+	mat-icon {
+		transition: color 0.5s ease-out;
+	}
+	&.new-item-download {
+		// A new item was added to download page
+		.mat-list-text,
+		mat-icon {
+			color: $color-icon;
+			// font-size: 18px;
+		}
+	}
+}

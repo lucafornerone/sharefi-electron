@@ -1,0 +1,66 @@
+/* DownloadComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+$started: grey;
+$in-progress: blue;
+$ended: green;
+$error: red;
+$interrupted: orange;
+
+#download-component-table {
+	// Grid columns
+	.row-checkbox {
+		width: 10%;
+		min-width: 50px;
+	}
+	.row-name {
+		width: 20%;
+		max-width: 20%;
+	}
+	.row-from {
+		width: 20%;
+		max-width: 20%;
+	}
+	.row-downloaded {
+		width: 15%;
+		max-width: 15%;
+	}
+	td.row-downloaded {
+		text-align: right;
+		padding-right: $base-padding * 2;
+	}
+	.row-type {
+		width: 10%;
+		max-width: 10%;
+	}
+	td.row-status {
+		font-weight: bold;
+	}
+	.row-status {
+		width: 15%;
+		max-width: 15%;
+		.row-status-started {
+			color: $started;
+		}
+		.row-status-in-progress {
+			color: $in-progress;
+		}
+		.row-status-ended {
+			color: $ended;
+		}
+		.row-status-error {
+			color: $error;
+		}
+		.row-status-interrupted {
+			color: $interrupted;
+		}
+	}
+	.row-blob {
+		width: 10%;
+		min-width: 50px;
+	}
+	td.row-blob {
+		padding-right: 0;
+	}
+}

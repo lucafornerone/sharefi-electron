@@ -1,0 +1,33 @@
+{
+	"name": "sharefi-electron",
+	"version": "0.1.0",
+	"description": "The sharefi app allows you to share files and folders through local network. It is fast, secure, free, easy to use and cross platform.",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lucafornerone/sharefi-electron.git"
+	},
+	"keywords": [],
+	"author": "Luca Fornerone",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/lucafornerone/sharefi-electron/issues"
+	},
+	"homepage": "https://github.com/lucafornerone/sharefi-electron#readme",
+	"dependencies": {
+		"archiver": "^5.1.0",
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"glob": "^7.1.6",
+		"local-devices": "^3.1.0",
+		"node-wifi": "^2.0.14",
+		"selfsigned": "^1.10.8",
+		"uuid": "^8.3.1"
+	},
+	"devDependencies": {
+		"electron": "^12.0.1"
+	}
+}

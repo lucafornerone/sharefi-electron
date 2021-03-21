@@ -1,0 +1,64 @@
+{
+	"generic": {
+		"refresh": "Aggiorna",
+		"close": "Chiudi",
+		"wired": "Ethernet"
+	},
+	"nav": {
+		"devices": "Dispositivi",
+		"shares": "Condivisioni",
+		"download": "Downloads"
+	},
+	"devices": {
+		"title": "Dispositivi connessi",
+		"notFound": "Nessun dispositivo trovato"
+	},
+	"table": {
+		"tagFilter": "Filtra per tag",
+		"type": "Tipo",
+		"name": "Nome",
+		"size": "Dimensione / Elementi",
+		"tag": "Tag",
+		"noElements": "Nessun elemento",
+		"of": "di",
+		"from": "Dispositivo",
+		"downloaded": "Scaricato",
+		"status": "Stato"
+	},
+	"download": {
+		"title": "I miei download",
+		"individual": "Scarica elementi singolarmente",
+		"zip": "Scarica come unico zip",
+		"elements": "elementi",
+		"remove": "Rimuovi elementi selezionati",
+		"stop": "Interrompi il download di tutti gli elementi",
+		"filter": "Filtra per dispositivo proveniente",
+		"interrupt": "Interrompi",
+		"download": "Scarica",
+		"status": {
+			"started": "Iniziato",
+			"inProgress": "In download",
+			"ended": "Completato",
+			"error": "Errore",
+			"interrupted": "Interrotto"
+		}
+	},
+	"shares": {
+		"title": "Le mie condivisioni",
+		"file": "Condividi file",
+		"folder": "Condividi cartella",
+		"remove": "Rimuovi condivisione degli elementi selezionati",
+		"dialog": {
+			"share": "Condividere",
+			"file": "file",
+			"folder": "cartella",
+			"folders": "cartelle",
+			"tag": "Inserisci un tag per identificare questa condivisione",
+			"button": "Condividi"
+		}
+	},
+	"loader": {
+		"search": "Ricerca dispositivi in corso...",
+		"error": "Errore durante l'apertura dell'applicazione"
+	}
+}

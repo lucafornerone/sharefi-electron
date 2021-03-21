@@ -1,0 +1,24 @@
+<!--
+ * HeaderComponent's html
+ -->
+
+<div id="loader-component-wrapper">
+	<div class="self-align-center-external-wrapper">
+		<div class="self-align-center-internal-wrapper">
+
+			<!-- Loop video of loader -->
+			<video autoplay loop *ngIf="themeService.getTheme() === lightTheme">
+				<source src="assets/mp4/loader-light.mp4" type="video/mp4">
+			</video>
+
+			<video autoplay loop *ngIf="themeService.getTheme() === darkTheme">
+				<source src="assets/mp4/loader-dark.mp4" type="video/mp4">
+			</video>
+
+			<!-- Loader info -->
+			<p *ngIf="loaderService.isErrorVisible()">{{ 'loader.error' | translate }}</p>
+			<p *ngIf="!loaderService.isErrorVisible()">{{ 'loader.search' | translate }}</p>
+
+		</div>
+	</div>
+</div>

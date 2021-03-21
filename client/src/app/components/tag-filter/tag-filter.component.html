@@ -1,0 +1,11 @@
+<!--
+ * TagFilterComponent's html
+ -->
+
+ <mat-form-field class="tag-filter-component-form-field">
+	<mat-label>{{ 'table.tagFilter' | translate }}</mat-label>
+	<input matInput (keyup)="handleKeyupTag($event)" #input autocomplete="off">
+	<button mat-button *ngIf="input.value" matSuffix mat-icon-button (click)="handleClickClear()">
+		<mat-icon>close</mat-icon>
+	</button>
+</mat-form-field>

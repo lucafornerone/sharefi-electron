@@ -1,0 +1,24 @@
+<!--
+ * ShareDialogComponent's html
+ -->
+
+<h1 mat-dialog-title>{{ 'shares.dialog.share' | translate }} {{data.itemsPath.length}}
+	<span *ngIf="data.itemType === itemService.availableItemType.FILE">{{ 'shares.dialog.file' | translate }}</span>
+	<span *ngIf="data.itemType === itemService.availableItemType.FOLDER && data.itemsPath.length === 1">{{ 'shares.dialog.folder' | translate }}</span>
+	<span *ngIf="data.itemType === itemService.availableItemType.FOLDER && data.itemsPath.length > 1">{{ 'shares.dialog.folders' | translate }}</span>
+	?
+</h1>
+<div mat-dialog-content>
+	<mat-form-field class="share-dialog-component-tag">
+		<mat-label>{{ 'shares.dialog.tag' | translate }}</mat-label>
+		<input matInput type="text" [(ngModel)]="tag" autocomplete="off" (keyup.enter)="handleClickShare()">
+		<button mat-button *ngIf="tag" matSuffix mat-icon-button (click)="tag = ''">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+</div>
+<div mat-dialog-actions>
+	<mat-spinner diameter="20" *ngIf="isLoaderVisible"></mat-spinner>
+	<button mat-button mat-raised-button color="primary" (click)="handleClickShare()" [disabled]="isLoaderVisible">{{ 'shares.dialog.button' | translate }}</button>
+	<button mat-button mat-dialog-close [disabled]="isLoaderVisible">{{ 'generic.close' | translate }}</button>
+</div>

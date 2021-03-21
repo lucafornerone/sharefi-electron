@@ -1,0 +1,166 @@
+<!--
+ * DownloadComponent's html
+ -->
+
+<mat-toolbar>
+	<span>{{ 'download.title' | translate }}</span>
+	<span class="toolbar-spacer"></span>
+	<button mat-icon-button
+		[matTooltip]="'download.remove' | translate" matTooltipPosition="left" [disabled]="selection.selected.length === 0" (click)="handleClickRemoveItemSelected()">
+		<mat-icon>
+			<!-- Remove all selected items -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-dash-circle app-icon" viewBox="0 0 16 16">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+			</svg>
+		</mat-icon>
+	</button>
+	<button mat-icon-button
+		[matTooltip]="'download.stop' | translate" matTooltipPosition="left" [disabled]="!isDownloading" (click)="handleClickStopDownloads()">
+		<mat-icon>
+			<!-- Stop all downloading items -->
+			<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-x-circle app-icon" viewBox="0 0 16 16">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+			</svg>
+		</mat-icon>
+	</button>
+</mat-toolbar>
+
+
+<div class="router-main">
+
+	<mat-form-field class="table-filter">
+		<mat-label>{{ 'download.filter' | translate }}</mat-label>
+		<input matInput (keyup)="applyFilter($event)" #input autocomplete="off" [disabled]="isDownloading">
+		<button mat-button *ngIf="input.value" matSuffix mat-icon-button (click)="handleClickClear()">
+			<mat-icon>close</mat-icon>
+		</button>
+	</mat-form-field>
+
+	<div class="table-wrapper">
+		<table mat-table [dataSource]="dataSource" matSort id="download-component-table">
+
+			<!-- Selection column -->
+			<ng-container matColumnDef="select">
+				<th class="row-checkbox" mat-header-cell *matHeaderCellDef>
+					<mat-checkbox (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected()"
+						[indeterminate]="selection.hasValue() && !isAllSelected()">
+					</mat-checkbox>
+				</th>
+				<td class="row-checkbox" mat-cell *matCellDef="let row">
+					<!-- Checkbox for selection -->
+					<mat-checkbox
+						*ngIf="!isItemDownloading(row)"
+						(click)="$event.stopPropagation()"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row)">
+					</mat-checkbox>
+					<!-- Loader -->
+					<mat-progress-spinner diameter="20" *ngIf="!row.isZip && isItemDownloading(row)"
+						mode="determinate"
+						[value]="row.percentage">
+					</mat-progress-spinner>
+					<mat-spinner diameter="20" *ngIf="row.isZip && isItemDownloading(row)"></mat-spinner>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-name">{{ 'table.name' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-name">{{row.name}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="from">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-from">{{ 'table.from' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-from">{{row.from}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="downloaded">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-downloaded">{{ 'table.downloaded' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-downloaded">{{row.sizeDownloaded}}</td>
+			</ng-container>
+
+			<ng-container matColumnDef="isZip">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-type">{{ 'table.type' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-type table-row-icon">
+					<svg *ngIf="!row.isZip" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+						<path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z" />
+					</svg>
+					<svg *ngIf="row.isZip" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-folder" viewBox="0 0 16 16">
+						<path d="M.54 3.87L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4H2.19zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707z" />
+					</svg>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-status">{{ 'table.status' | translate }}</th>
+				<td mat-cell *matCellDef="let row" class="table-row row-status">
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.STARTED"
+						class="row-status-started">
+						{{ 'download.status.started' | translate }}
+					</span>
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.IN_PROGRESS"
+						class="row-status-in-progress" [matMenuTriggerFor]="menuInterrupt" style="cursor:pointer;">
+						{{ 'download.status.inProgress' | translate }}
+
+						<!-- Menu for interrupt current item -->
+						<mat-menu #menuInterrupt="matMenu" class="download-component-interrupt-menu">
+							<button mat-menu-item (click)="handleClickInterruptDownload(row)">
+								<mat-icon>
+									<svg xmlns="http://www.w3.org/2000/svg" width=" 100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+										<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+									</svg>
+								</mat-icon>
+								<span>{{ 'download.interrupt' | translate }}</span>
+							</button>
+						</mat-menu>
+					</span>
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.ENDED"
+						class="row-status-ended">
+						{{ 'download.status.ended' | translate }}
+					</span>
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.ERROR"
+						class="row-status-error">
+						{{ 'download.status.error' | translate }}
+					</span>
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.INTERRUPTED"
+						class="row-status-interrupted">
+						{{ 'download.status.interrupted' | translate }}
+					</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="blob">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header class="row-blob"></th>
+				<td mat-cell *matCellDef="let row" class="table-row row-blob" (click)="$event.stopPropagation()">
+
+					<button mat-icon-button *ngIf="row.blob" (click)="handleClickItemDownload(row)" [matTooltip]="'download.download' | translate" matTooltipPosition="left">
+						<mat-icon>
+							<!-- Donwload item -->
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-arrow-down app-icon app-icon-color" viewBox="0 0 16 16">
+								<path d="M8 5a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 9.293V5.5A.5.5 0 0 1 8 5z" />
+								<path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
+							</svg>
+						</mat-icon>
+					</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;"
+				(click)=" isItemDownloading(row) || selection.toggle(row)">
+			</tr>
+
+			<!-- Row shown when there is no matching data -->
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" colspan="7">{{ 'table.noElements' | translate }}</td>
+			</tr>
+
+		</table>
+
+		<mat-paginator [pageSize]="pageSize"></mat-paginator>
+	</div>
+
+</div>

@@ -1,0 +1,51 @@
+/* App's table scss */
+
+@import './app-variables.scss';
+
+.tag-filter-component-form-field, .table-filter {
+	width: 90%;
+	height: $height-grid-filter;
+}
+
+// External wrapper
+.table-wrapper {
+	// Remove height of filter, paginator and bottom padding
+	height: calc(100% - #{$height-grid-filter} - #{$height-grid-paginator} + #{$base-padding});
+	padding-right: $base-padding;
+	table {
+		width: 100%;
+		table-layout: fixed;
+		min-width: 420px;
+
+		.table-row {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			padding-right: 5px;
+			font-size: 13px;
+		}
+
+		.table-row-icon {
+			svg {
+				width: 16px;
+				height: 16px;
+			}
+		}
+
+	}
+}
+
+// Table paginator
+mat-paginator {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	right: $base-padding * 2;
+	bottom: 0;
+	height: $height-grid-paginator;
+
+	// Page size
+	div.mat-paginator-page-size {
+		display: none;
+	}
+}

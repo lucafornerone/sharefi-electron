@@ -1,0 +1,27 @@
+{
+	"name": "sharefi-build",
+	"scripts": {
+		"build:darwin-portable-x64": "electron-packager ./app-darwin sharefi --overwrite --platform=darwin --arch=x64 --icon=../resources/sharefi.icns --out=../release/",
+		"build:darwin-dmg-x64": "electron-installer-dmg ../release/sharefi-darwin-x64/sharefi.app sharefi --icon=../resources/sharefi.icns --overwrite --out=../release/",
+		"build:windows-portable-x64": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=x64 --overwrite --icon=../resources/sharefi.ico --out ../release/",
+		"build:windows-portable-x86": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=ia32 --overwrite --icon=../resources/sharefi.ico --out ../release/",
+		"build:linux-x64": "electron-packager ./app-linux --asar --platform=linux --arch=x64 --overwrite --icon=../resources/sharefi.png --out ../release/",
+		"build:linux-x86": "electron-packager ./app-linux --asar --platform=linux --arch=ia32 --overwrite --icon=../resources/sharefi.png --out ../release/",
+		"build:linux-deb-x64": "electron-installer-debian --src ../release/sharefi-electron-linux-x64/ --dest ../release/ --arch amd64 --icon ../resources/sharefi.png --options.productName sharefi",
+		"build:linux-deb-x86": "electron-installer-debian --src ../release/sharefi-electron-linux-ia32/ --dest ../release/ --arch i386 --icon ../resources/sharefi.png --options.productName sharefi",
+		"build:linux-rpm-x86_64": "electron-installer-redhat --src ../release/sharefi-electron-linux-x64/ --dest ../release/ --arch x86_64 --icon ../resources/sharefi.png --options.productName sharefi"
+	},
+	"dependencies": {
+		"archiver": "^5.2.0"
+	},
+	"devDependencies": {
+		"electron-packager": "^15.2.0"
+	},
+	"optionalDependencies": {
+		"electron-installer-debian": "^3.1.0",
+		"electron-installer-dmg": "^3.0.0",
+		"electron-installer-redhat": "^3.2.0",
+		"electron-wix-msi": "^3.0.6",
+		"which": "^2.0.2"
+	}
+}

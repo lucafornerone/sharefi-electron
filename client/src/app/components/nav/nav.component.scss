@@ -1,0 +1,34 @@
+/* NavComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+#nav-component-wrapper {
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	// Nav items
+	mat-selection-list {
+		&:focus {
+			outline: none;
+		}
+		mat-list-option {
+			width: 95% !important;
+			margin: 0 auto;
+			border-radius: 4px;
+		}
+	}
+
+	img {
+		position: absolute;
+		left: 0;
+		bottom: $base-padding / 2;
+		right: 0;
+		width: 100%;
+		cursor: pointer;
+	}
+}
+// selected route
+.mat-list-single-selected-option {
+	background: $color-nav-selected;
+}

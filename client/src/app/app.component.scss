@@ -1,0 +1,47 @@
+/**
+ * Angular's auto generated scss
+ */
+
+@import './scss/app-variables.scss';
+
+header,
+nav,
+section {
+	background-color: $color-background;
+}
+
+header {
+	height: $height-header;
+	width: 100%;
+	border-bottom: 1px solid $color-border;
+
+	app-header {
+		height: $height-header;
+		width: 100%;
+		display: block;
+	}
+}
+
+nav {
+	height: calc(100% - #{$height-header});
+	width: $width-nav;
+	display: inline-block;
+}
+
+section {
+	height: calc(100% - #{$height-header});
+	width: calc(100% - #{$width-nav});
+	display: block;
+	position: absolute;
+	top: $height-header;
+	right: 0;
+}
+
+app-loader, app-offline {
+	position: absolute;
+    left: 0;
+    top: 0;
+	right: 0;
+	width: 100%;
+	height: 100%;
+}

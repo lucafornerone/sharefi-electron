@@ -1,0 +1,26 @@
+/* LoaderComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+#loader-component-wrapper {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	background-color: $loader-background;
+	overflow: hidden;
+	position: relative;
+	/* Loader media */
+	video {
+		margin: 0 auto;
+		width: 100%;
+		max-width: 1080px;
+	}
+	/* Loader info */
+	p {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: $base-padding;
+		text-align: center;
+	}
+}

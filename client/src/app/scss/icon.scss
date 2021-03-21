@@ -1,0 +1,16 @@
+/* App's icon scss */
+
+@import './app-variables.scss';
+
+svg.app-icon {
+	width: 100%;
+	height: 100%;
+	&.app-icon-color {
+		color: $color-icon;
+	}
+}
+.header-component-language-menu {
+	button:disabled mat-icon {
+		opacity: 0.38;
+	}
+}

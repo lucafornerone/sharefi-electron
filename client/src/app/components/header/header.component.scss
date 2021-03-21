@@ -1,0 +1,39 @@
+/* HeaderComponent's scss */
+
+@import '../../scss/app-variables.scss';
+
+aside {
+	height: 100%;
+	width: $width-nav;
+	display: inline-block;
+	&#device-component-name {
+		padding-left: $base-padding;
+		mat-form-field {
+			width: $width-nav - ($base-padding * 2);
+		}
+	}
+	&#device-component-persistent-settings {
+		padding-right: $base-padding;
+		text-align: right;
+	}
+}
+
+section {
+	height: 100%;
+	width: calc(100% - (#{$width-nav} * 2));
+	display: inline-block;
+	mat-toolbar {
+		height: $base-padding * 2;
+		span#device-component-network-name {
+			max-width: 300px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			padding-top: 2px;
+		}
+		svg {
+			// Wifi icon
+			color: black;
+		}
+	}
+}

@@ -1,0 +1,44 @@
+/* App's material theme */
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+// Thanks to http://mcg.mbitson.com/
+$mat-primary-app: (
+	50: #e8f0fe,
+	100: #c6dafc,
+	200: #a1c2fa,
+	300: #7baaf7,
+	400: #5e97f6,
+	500: #4285f4,
+	600: #3c7df3,
+	700: #3372f1,
+	800: #2b68ef,
+	900: #1d55ec,
+	A100: #ffffff,
+	A200: #eef2ff,
+	A400: #bbcbff,
+	A700: #a1b8ff,
+	contrast: (
+		50: #000000,
+		100: #000000,
+		200: #000000,
+		300: #000000,
+		400: #000000,
+		500: #ffffff,
+		600: #ffffff,
+		700: #ffffff,
+		800: #ffffff,
+		900: #ffffff,
+		A100: #000000,
+		A200: #000000,
+		A400: #000000,
+		A700: #000000,
+	),
+);
+
+// Set theme colors
+$app-theme: mat-light-theme(mat-palette($mat-primary-app), mat-palette($mat-primary-app));
+
+// Override default material theme
+@include angular-material-theme($app-theme);
