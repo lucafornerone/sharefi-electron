@@ -51,19 +51,20 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or cr
 #### Prerequisites:
 * [Python](https://www.python.org/downloads/source/)
 * rpm-build, only for .rpm, you can install it with: `dnf install rpm-build`
+* [snapcraft](https://snapcraft.io/docs/installing-snapd), only for .snap
 
 #### Dependencies:
-* net-tools: sudo apt-get install net-tools
-* libnss3-tools: sudo apt-get install libnss3-tools
-* network-manager: sudo apt-get install network-manager
+* net-tools: [package](https://command-not-found.com/arp)
 
 #### Build options:
-For Linux you can create a installer for Debian-based distributions (.deb, 64-bit) or a installer for Red Hat-based distributions (.rpm, 64-bit), build scripts must be run from ./platforms/linux:
+For Linux you can create a installer for Debian-based distributions (.deb, 64-bit), a installer for Red Hat-based distributions (.rpm, 64-bit) or a Snap installer (.snap, 64-bit), build scripts must be run from ./platforms/linux:
 
 * Debian-based Installer 64-bit, run:
 `node build-debian-installer-x64.js`
 * Red Hat-based Installer 64-bit, run:
 `node build-redhat-installer-x64.js`
+* Snap Installer 64-bit, run:
+`node build-snap-installer-x64.js`
 
 #### Uninstall:
 Uninstallation differs depending on the distribution:
@@ -73,3 +74,5 @@ Uninstallation differs depending on the distribution:
 * Red Hat-based, run:
 `rpm -qa | grep -i sharefi`,
 then: `sudo rpm -e <package name>`
+* Snap, run:
+`sudo snap remove sharefi-electron`

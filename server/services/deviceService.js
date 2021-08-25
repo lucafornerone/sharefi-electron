@@ -6,6 +6,7 @@
  * @requires os
  * @requires node-wifi
  * @requires electron
+ * @requires child_process
  *
  * @requires ConfigElement
  * @requires SupportedOS
@@ -22,6 +23,7 @@ const os = require('os');
 const networkInterfaces = os.networkInterfaces();
 const nodeWifi = require('node-wifi');
 const { shell } = require('electron');
+const { execSync } = require('child_process');
 
 // App modules
 const ConfigElement = require('../enums/ConfigElement');
@@ -188,29 +190,49 @@ async function _getNetworkName() {
 
 	let networkName;
 
-	try {
+	if (_getOSName() === SupportedOS.LINUX) {
 
-		// Initialize module
-		nodeWifi.init({ iface: null });
+		try {
+			// Get result from 'iwgetid' command
+			const iwgetid = execSync('iwgetid').toString();
+			if (iwgetid && iwgetid.includes('ESSID:')) {
 
-		await new Promise((resolve, reject) => {
-
-			// List all wi-fi networks
-			nodeWifi.getCurrentConnections(function (error, currentConnections) {
-				if (error) {
-					reject();
+				// Device is connected to wi-fi
+				const ssidNameWithQuotes = iwgetid.split('ESSID:')[1];
+				if (ssidNameWithQuotes && ssidNameWithQuotes.includes('"')) {
+					// Get network name without quotes
+					networkName = ssidNameWithQuotes.replaceAll('"', '');
 				}
-				// Take first connection's SSID
-				if (currentConnections && currentConnections.length > 0 && currentConnections[0].ssid) {
-					networkName = currentConnections[0].ssid;
-				}
-				resolve();
+			}
+		} catch (e) {
+			// Wired connection
+		}
+	} else {
+
+		try {
+
+			// Initialize module
+			nodeWifi.init({ iface: null });
+
+			await new Promise((resolve, reject) => {
+
+				// List all wi-fi networks
+				nodeWifi.getCurrentConnections(function (error, currentConnections) {
+					if (error) {
+						reject();
+					}
+					// Take first connection's SSID
+					if (currentConnections && currentConnections.length > 0 && currentConnections[0].ssid) {
+						networkName = currentConnections[0].ssid;
+					}
+					resolve();
+				});
+
 			});
 
-		});
-
-	} catch (e) {
-		// Device has not wi-fi module
+		} catch (e) {
+			// Device has not wi-fi module
+		}
 	}
 
 	// If device is not connected to wifi, is connected through wired

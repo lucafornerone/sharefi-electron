@@ -17,15 +17,7 @@ const path = require('path');
 const expressApp = require('./server/server');
 
 /**
- * Open Electron App
- * @return {Void}
- */
-function openApp() {
-	startServer();
-}
-
-/**
- * Start Express server, then create app window
+ * Start Express server, then create Electron App window
  * @return {Void}
  */
 async function startServer() {
@@ -96,8 +88,8 @@ function createWindow() {
 // Ignore Chromium selfsigned warning errors
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 
-// Open Electron app
-app.whenReady().then(openApp);
+// Start Electron app
+app.whenReady().then(startServer);
 
 // User click on close all windows
 app.on('window-all-closed', () => {
