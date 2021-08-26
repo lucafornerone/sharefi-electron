@@ -26,6 +26,7 @@
 		"@types/uuid": "^8.3.0",
 		"bootstrap-icons": "^1.2.1",
 		"ionicons": "^5.2.3",
+		"is-svg": "^4.3.1",
 		"rxjs": "~6.6.0",
 		"tslib": "^2.0.0",
 		"uuid": "^8.3.2",

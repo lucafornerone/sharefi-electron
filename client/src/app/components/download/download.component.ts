@@ -81,6 +81,12 @@ export class DownloadComponent implements OnInit {
 		this._initializeDownload();
 	}
 
+	ngAfterViewInit(): void {
+		// Set page size after page is loaded
+		this._setPageSize(this._paginatorService.getPageSize());
+		this.dataSource.data = this._items;
+	}
+
 	/**
      * Initialize download subscription to be notified at each change of status
      * @return {Void}
@@ -132,11 +138,11 @@ export class DownloadComponent implements OnInit {
      * @return {Void}
      */
 	private _loadItemDownload(status: DownloadStatus): void {
-		this.dataSource = new MatTableDataSource(this._items);
-		if (status === DownloadStatus.STARTED) {
-			// Update paginator and sort if there is new item
-			this._loadTable();
-		}
+		this.dataSource.sort = this.sort;
+		this.dataSource.filterPredicate = function (data: ItemDownload, filter: string): boolean {
+			return data.from ? data.from.toLowerCase().includes(filter) : false;
+		};
+		this._setPageSize(this._paginatorService.getPageSize());
 	}
 
 	/**
@@ -174,6 +180,13 @@ export class DownloadComponent implements OnInit {
 	public handleClickClear(): void {
 		// Empty input value
 		this.input.nativeElement.value = '';
+		// Reset items
+		this.dataSource.filter = '';
+		this.dataSource.sort = this.sort;
+		this.dataSource.filterPredicate = function (data: ItemDownload, filter: string): boolean {
+			return data.from ? data.from.toLowerCase().includes(filter) : false;
+		};
+		this._setPageSize(this._paginatorService.getPageSize());
 	}
 
 	/**
@@ -194,6 +207,8 @@ export class DownloadComponent implements OnInit {
 				this._items.splice(i, 1);
 			}
 		});
+		this.dataSource = new MatTableDataSource(this._items);
+		this.dataSource.data = this._items;
 		this._loadTable();
 		this.selection.clear();
 	}
