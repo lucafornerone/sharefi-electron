@@ -11,5 +11,6 @@ export interface DownloadSubscription {
 	name: string,
 	id: number | null, // Used for files
 	zipId: string | null, // Used for folders
+	from: string,
 	subscription: Subscription
 }

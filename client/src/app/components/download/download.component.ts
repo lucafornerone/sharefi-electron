@@ -251,6 +251,11 @@ export class DownloadComponent implements OnInit {
 			item.blob = undefined;
 			// Remove current item to ready downloads
 			this.downloadService.removeItemToReadyDownloads();
+			// Update item status
+			const itemIndex: number = this._findItemIndex({ isZip: item.isZip, name: item.name, status: item.status, id: item.id, zipId: item.zipId });
+			if(itemIndex != -1) {
+				this._items[itemIndex].status = DownloadStatus.DOWNLOADED;
+			}
 		}
 	}
 

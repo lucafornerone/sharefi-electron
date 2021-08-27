@@ -17,7 +17,7 @@ module.exports = function parseLinux (row, servers, parseOne) {
   } else {
     result = prepareAll(chunks)
   }
-console.log(result)
+  
   // Only resolve external ips.
   if (!~servers.indexOf(result.ip)) {
     return

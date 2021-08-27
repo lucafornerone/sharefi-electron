@@ -67,6 +67,7 @@ export class DownloadService {
  	 * @return {Void}
  	 */
 	public addItemToReadyDownloads(): void {
+		debugger;
 		this._readyDownloads = this.getReadyDownloads() + 1;
 	}
 
@@ -85,6 +86,14 @@ export class DownloadService {
      */
 	public addPendingSubscription(download: DownloadSubscription): void {
 		this._pendingSubscription.push(download);
+	}
+
+	/**
+     * Get pending subscription list
+     * @return {DownloadSubscription[]} Pending subscription list
+     */
+	 public getPendingSubscription(): DownloadSubscription[] {
+		return this._pendingSubscription;
 	}
 
 	/**

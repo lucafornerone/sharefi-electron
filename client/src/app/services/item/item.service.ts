@@ -13,6 +13,7 @@ import { Injectable } from '@angular/core';
 import { ItemType } from '@enums/item-type';
 
 export const NO_BYTES: string = '0 Bytes';
+export const ARCHIVE_EXTENSION: string = '.zip';
 
 @Injectable({
 	providedIn: 'root'

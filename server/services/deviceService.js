@@ -201,7 +201,7 @@ async function _getNetworkName() {
 				const ssidNameWithQuotes = iwgetid.split('ESSID:')[1];
 				if (ssidNameWithQuotes && ssidNameWithQuotes.includes('"')) {
 					// Get network name without quotes
-					networkName = ssidNameWithQuotes.replaceAll('"', '');
+					networkName = ssidNameWithQuotes.replace(/"|\n/g, '');
 				}
 			}
 		} catch (e) {
