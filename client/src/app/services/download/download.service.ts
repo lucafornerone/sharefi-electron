@@ -67,7 +67,6 @@ export class DownloadService {
  	 * @return {Void}
  	 */
 	public addItemToReadyDownloads(): void {
-		debugger;
 		this._readyDownloads = this.getReadyDownloads() + 1;
 	}
 
