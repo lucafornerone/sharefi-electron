@@ -25,6 +25,7 @@
 		"@ngx-translate/http-loader": "^6.0.0",
 		"@types/uuid": "^8.3.0",
 		"bootstrap-icons": "^1.2.1",
+		"html-comment-regex": "^1.1.2",
 		"ionicons": "^5.2.3",
 		"is-svg": "^4.3.1",
 		"rxjs": "~6.6.0",
