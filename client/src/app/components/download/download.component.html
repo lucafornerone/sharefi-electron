@@ -129,6 +129,10 @@
 						class="row-status-interrupted">
 						{{ 'download.status.interrupted' | translate }}
 					</span>
+					<span *ngIf="row.status === downloadService.availableDownloadStatus.DOWNLOADED"
+						class="row-status-downloaded">
+						{{ 'download.status.downloaded' | translate }}
+					</span>
 				</td>
 			</ng-container>
 

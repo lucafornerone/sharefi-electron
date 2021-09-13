@@ -7,6 +7,7 @@
  * @requires files
  * @requires npm_run
  * @requires rename
+ * @requires zip
  */
 
 // App modules
@@ -16,6 +17,7 @@ const folders = require('../../scripts/common/folders');
 const files = require('../../scripts/common/files');
 const npm_run = require('../../scripts/common/npm-run');
 const rename = require('../../scripts/common/rename');
+const zip = require('../../scripts/common/zip');
 
 async function build() {
 
@@ -54,6 +56,16 @@ async function build() {
 
 		console.log('Remove release folder...');
 		await folders.removeReleaseFolder(config.macOsConfig.npmPortable64Path);
+		console.log('Finish!');
+
+		console.log('Zip release app...');
+		if (!await zip.zipFolder(`${config.macOsConfig.npmPortable64Path} v${config.version}.app`)) {
+			return;
+		}
+		console.log('Finish!');
+
+		console.log('Remove release app...');
+		await folders.removeReleaseFolder(`${config.macOsConfig.npmPortable64Path} v${config.version}.app`);
 		console.log('Finish!');
 
 	} catch (e) {

@@ -5,7 +5,7 @@
 
 /** Common */
 const appName = 'sharefi';
-const version = '0.1.0';
+const version = '0.2.0';
 const description = 'Share files through your local network';
 const author = 'Luca Fornerone';
 const completeName = 'sharefi-electron';
@@ -49,7 +49,15 @@ const linuxConfig = {
 	npmInstallerDebian64Script: 'build:linux-deb-x64',
 	releaseDebian: 'debian',
 	npmInstallerRedHatx86_64Script: 'build:linux-rpm-x86_64',
-	releaseRedHat: 'redhat'
+	releaseRedHat: 'redhat',
+	releaseSnap: 'snap',
+	releaseSnapScript: 'electron-builder --linux snap',
+	snapPackageIcon: '{ "linux": { "target": "snap", "icon": "build/icons" } }',
+	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default","wireless-tools","net-tools","network-manager-pptp"] } } }',
+	snapPackageProductName: '{ "productName": "sharefi" }',
+	snapPrepareIconScript: 'prepare-snap-icon.sh',
+	snapLocalDevicesIndexJs: 'local-devices/src/index.js',
+	snapLocalDevicesParserJs: 'local-devices/src/parser/linux.js'
 }
 
 module.exports = {

@@ -40,7 +40,8 @@
 			"inProgress": "In download",
 			"ended": "Abgeschlossen",
 			"error": "Fehler",
-			"interrupted": "Unterbrochen"
+			"interrupted": "Unterbrochen",
+			"downloaded": "Heruntergeladen"
 		}
 	},
 	"shares": {

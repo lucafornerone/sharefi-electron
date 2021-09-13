@@ -88,6 +88,14 @@ export class DownloadService {
 	}
 
 	/**
+     * Get pending subscription list
+     * @return {DownloadSubscription[]} Pending subscription list
+     */
+	 public getPendingSubscription(): DownloadSubscription[] {
+		return this._pendingSubscription;
+	}
+
+	/**
 	 * Stop all pending downloads
 	 * @param  {Download[]} downloads Download items to stop
  	 * @return {Void}

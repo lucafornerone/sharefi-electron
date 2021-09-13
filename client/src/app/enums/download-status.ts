@@ -7,5 +7,6 @@ export enum DownloadStatus {
 	IN_PROGRESS = 'in-progress',
 	ENDED = 'ended',
 	ERROR = 'error',
-	INTERRUPTED = 'interrupted'
+	INTERRUPTED = 'interrupted',
+	DOWNLOADED = 'downloaded'
 }

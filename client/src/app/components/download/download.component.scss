@@ -7,6 +7,7 @@ $in-progress: blue;
 $ended: green;
 $error: red;
 $interrupted: orange;
+$downloaded: black;
 
 #download-component-table {
 	// Grid columns
@@ -54,6 +55,9 @@ $interrupted: orange;
 		}
 		.row-status-interrupted {
 			color: $interrupted;
+		}
+		.row-status-downloaded {
+			color: $downloaded;
 		}
 	}
 	.row-blob {

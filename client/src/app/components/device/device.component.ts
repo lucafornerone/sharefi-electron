@@ -41,7 +41,7 @@ import { Item } from '@models/item/item';
 import { ItemApiService } from '@services/api/item-api.service';
 import { DeviceNetwork } from '@models/device/device-network';
 import { PaginatorService } from '@services/table/paginator.service';
-import { ItemService } from '@services/item/item.service';
+import { ItemService, ARCHIVE_EXTENSION } from '@services/item/item.service';
 import { DownloadRequest } from '@interfaces/download-request.interface';
 import { DownloadService } from '@services/download/download.service';
 import { DownloadStatus } from '@enums/download-status';
@@ -172,10 +172,19 @@ export class DeviceComponent implements OnInit {
 		}
 
 		// Set new item download status
+		let indexAlreadyDownloading: number;
 		if (item.type === this.itemService.availableItemType.FILE) {
-			this._streamFile(downloadRequest, item);
+			// Check if file is not already downloading
+			indexAlreadyDownloading = this._downloadService.getPendingSubscription().findIndex(ps => ps.from === this.device.name && ps.id != null && ps.id === item.id && ps.name === item.fullName);
+			if(indexAlreadyDownloading === -1) {
+				this._streamFile(downloadRequest, item);
+			}
 		} else if (item.type === this.itemService.availableItemType.FOLDER) {
-			this._streamFolder(downloadRequest);
+			// Check if folder is not already downloading
+			indexAlreadyDownloading = this._downloadService.getPendingSubscription().findIndex(ps => ps.from === this.device.name && ps.zipId != null && ps.name === `${item.name}${ARCHIVE_EXTENSION}`);
+			if(indexAlreadyDownloading === -1) {
+				this._streamFolder(downloadRequest);
+			}
 		}
 	}
 
@@ -387,6 +396,7 @@ export class DeviceComponent implements OnInit {
 				name: file.fullName,
 				id: downloadRequest.id,
 				zipId: null,
+				from: this.device.name,
 				subscription: this._itemApiService.streamItem(this.device.ip, downloadRequest, this.itemService.availableItemType.FILE).subscribe(
 					(progress: any) => {
 
@@ -424,7 +434,7 @@ export class DeviceComponent implements OnInit {
 		const zipId: string = uuid();
 
 		// Generated zip name
-		const zipName: string = `${downloadRequest.name}.zip`;
+		const zipName: string = `${downloadRequest.name}${ARCHIVE_EXTENSION}`;
 
 		// Initialize folder download status
 		this._startDownloadStatus(zipName, true, undefined, undefined, undefined, zipId);
@@ -435,6 +445,7 @@ export class DeviceComponent implements OnInit {
 				name: zipName,
 				zipId: zipId,
 				id: null,
+				from: this.device.name,
 				subscription: this._itemApiService.streamItem(this.device.ip, downloadRequest, this.itemService.availableItemType.FOLDER).subscribe(
 					(progress: any) => {
 
@@ -474,7 +485,7 @@ export class DeviceComponent implements OnInit {
 		// Generated zip id
 		const zipId: string = uuid();
 		// Generated zip name
-		const zipName: string = `${firstItemName} + ${downloadRequests.length - 1} ${elementsLabel}.zip`;
+		const zipName: string = `${firstItemName} + ${downloadRequests.length - 1} ${elementsLabel}${ARCHIVE_EXTENSION}`;
 
 		// Initialize zip download status
 		this._startDownloadStatus(zipName, true, undefined, undefined, undefined, zipId);
@@ -485,6 +496,7 @@ export class DeviceComponent implements OnInit {
 				name: zipName,
 				zipId: zipId,
 				id: null,
+				from: this.device.name,
 				subscription: this._itemApiService.streamZip(this.device.ip, downloadRequests).subscribe(
 					(progress: any) => {
 
