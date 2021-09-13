@@ -51,7 +51,7 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or cr
 #### Prerequisites:
 * [Python](https://www.python.org/downloads/source/)
 * rpm-build, only for .rpm, you can install it with: `dnf install rpm-build`
-* [snapcraft](https://snapcraft.io/docs/installing-snapd), only for .snap
+* [snapcraft](https://snapcraft.io/docs/installing-snapd) and [Multipass](https://multipass.run/), only for .snap
 
 #### Dependencies:
 * net-tools: [package](https://command-not-found.com/arp)
