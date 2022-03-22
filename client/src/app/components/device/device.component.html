@@ -25,7 +25,7 @@
 			</svg>
 		</mat-icon>
 	</button>
-	<button mat-icon-button [disabled]="selection.selected.length === 0" (click)="handleClickDownloadZip()"
+	<button mat-icon-button [disabled]="selection.selected.length === 0 || deviceRouteService.isMobile()" (click)="handleClickDownloadZip()"
 		[matTooltip]="'download.zip' | translate" matTooltipPosition="left">
 		<mat-icon>
 			<!-- Zip item download -->
