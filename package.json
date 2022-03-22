@@ -1,6 +1,6 @@
 {
 	"name": "sharefi-electron",
-	"version": "0.2.0",
+	"version": "0.3.0",
 	"description": "The sharefi app allows you to share files and folders through local network. It is fast, secure, free, easy to use and cross platform.",
 	"main": "main.js",
 	"scripts": {

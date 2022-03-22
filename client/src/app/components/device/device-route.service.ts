@@ -82,4 +82,12 @@ export class DeviceRouteService {
 		this._deviceOffline$.next(ip);
 	}
 
+	/**
+	 * Know if device is mobile
+ 	 * @return {Boolean} True if the device is mobile
+ 	 */
+	 public isMobile(): boolean {
+		return this._device.os === 'iOS' || this._device.os === 'Android'
+	}
+
 }

@@ -24,6 +24,7 @@
  * @requires TooltipService
  * @requires RoutingService
  * @requires RoutingList
+ * @requires ItemType
  */
 
 // Npm modules
@@ -49,6 +50,7 @@ import { Download } from '@models/download/download';
 import { TooltipService } from '@services/tooltip/tooltip.service';
 import { RoutingService } from '@services/routing/routing.service';
 import { RoutingList } from '@enums/routing-list';
+import { ItemType } from '@enums/item-type';
 
 @Component({
 	selector: 'app-device',
@@ -75,7 +77,6 @@ export class DeviceComponent implements OnInit {
 	@ViewChild(MatSort) sort!: MatSort;
 
 	constructor(
-		private _deviceRouteService: DeviceRouteService,
 		private _itemApiService: ItemApiService,
 		private _paginatorService: PaginatorService,
 		private _downloadService: DownloadService,
@@ -83,10 +84,11 @@ export class DeviceComponent implements OnInit {
 		private _tooltipService: TooltipService,
 		private _routingService: RoutingService,
 		public itemService: ItemService,
+		public deviceRouteService: DeviceRouteService
 	) {
 
 		// Get device name from device route service
-		this.device = this._deviceRouteService.getDevice();
+		this.device = this.deviceRouteService.getDevice();
 
 		// Get notification of window size change
 		this._paginatorService.getWindowResizePageNumber().subscribe(
@@ -119,15 +121,22 @@ export class DeviceComponent implements OnInit {
 	public loadSharedItems(): void {
 		this._itemApiService.getSharedItems(this.device.ip).subscribe(
 			(items: Item[]) => {
+
+				if (this.deviceRouteService.isMobile()) {
+					// Force item type to file to allow download
+					items.forEach(item => {
+						item.type = ItemType.FILE;
+					});
+				}
 				// Load shared items to table
 				this.dataSource = new MatTableDataSource(items);
 				this.loadTable();
 				// Notifies total shared items to devices page
-				this._deviceRouteService.setDeviceShares(items.length);
+				this.deviceRouteService.setDeviceShares(items.length);
 			},
 			() => {
 				// The device is unreachable, remove it from devices
-				this._deviceRouteService.setDeviceOffline(this.device.ip);
+				this.deviceRouteService.setDeviceOffline(this.device.ip);
 				this._routingService.navigateTo(RoutingList.DEVICES);
 			}
 		)

@@ -5,9 +5,10 @@
 <mat-card class="device-info-component-card">
 	<mat-card-header>
 		<div mat-card-avatar>
-			<ion-icon *ngIf="os === 'macOS'" name="logo-apple"></ion-icon>
+			<ion-icon *ngIf="os === 'macOS' || os === 'iOS'" name="logo-apple"></ion-icon>
 			<ion-icon *ngIf="os === 'Windows'" name="logo-windows"></ion-icon>
 			<ion-icon *ngIf="os === 'Linux'" name="logo-tux"></ion-icon>
+			<ion-icon *ngIf="os === 'Android'" name="logo-android"></ion-icon>
 		</div>
 		<mat-card-title [matTooltip]="name" matTooltipPosition="right" matTooltipClass="tooltip-devices">{{name}}</mat-card-title>
 		<mat-card-subtitle>
