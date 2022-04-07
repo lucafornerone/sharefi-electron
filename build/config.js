@@ -5,10 +5,11 @@
 
 /** Common */
 const appName = 'sharefi';
-const version = '0.3.0';
+const version = '0.3.8';
 const description = 'Share files through your local network';
 const author = 'Luca Fornerone';
 const completeName = 'sharefi-electron';
+const languagesAvailable = ['de', 'en', 'es', 'fr', 'it'];
 
 /** macOS */
 const macOsConfig = {
@@ -19,7 +20,14 @@ const macOsConfig = {
 	npmPortable64Path: 'sharefi-darwin-x64',
 	npmPortable64File: 'sharefi.app',
 	npmInstaller64Script: 'build:darwin-dmg-x64',
-	npmInstaller64File: 'sharefi.dmg'
+	npmInstaller64File: 'sharefi.dmg',
+	masName: 'sharefi - LAN File Sharing',
+	npmMas: 'build:darwin-mas',
+	masBuildFolder: 'mas',
+	masApp: 'release/mas/sharefi-mas-x64/sharefi.app',
+	masAppFolder: 'mas/sharefi-mas-x64',
+	masResignScript: 'resign-package.sh',
+	masFileName: 'sharefi-mac_store.pkg'
 }
 
 /** Windows */
@@ -66,6 +74,7 @@ module.exports = {
 	description,
 	author,
 	completeName,
+	languagesAvailable,
 	macOsConfig,
 	windowsConfig,
 	linuxConfig

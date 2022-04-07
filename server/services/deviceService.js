@@ -46,6 +46,10 @@ async function findDevices() {
 
 		await new Promise((resolve, reject) => {
 
+			setTimeout(() => {
+				resolve();
+			}, 15000);
+
 			localDevices().then(devicesFounded => {
 				devices = devicesFounded;
 				resolve();
