@@ -4,12 +4,14 @@
  * @requires child_process
  * @requires path
  * @requires fs
+ * @requires glob
  */
 
 // Npm modules
 const exec = require('child_process').exec;
 const path = require('path');
 const fs = require('fs');
+const glob = require('glob');
 
 /**
  * Prepare folders for build
@@ -59,7 +61,7 @@ async function removeLinuxBuildFolder(folder, scriptFolder, scriptName) {
 	const basePath = path.join(__dirname, '../..');
 
 	const buildFolder = `${basePath}/${folder}`;
-	if (fs.existsSync(buildFolder)) {		
+	if (fs.existsSync(buildFolder)) {
 		await _removeLinuxFolder(scriptFolder, scriptName);
 	}
 
@@ -77,7 +79,7 @@ async function removeLinuxPreReleaseFolder(folder, scriptFolder, scriptName) {
 	const basePath = path.join(__dirname, '../../../release');
 
 	const preReleaseFolder = `${basePath}/${folder}`;
-	if (fs.existsSync(preReleaseFolder)) {		
+	if (fs.existsSync(preReleaseFolder)) {
 		await _removeLinuxFolder(scriptFolder, scriptName);
 	}
 
@@ -138,11 +140,51 @@ async function prepareIcon(folder, script) {
 
 }
 
+/**
+ * Remove mas languages not supported
+ * @param  {String}        appPath .app path
+ * @param  {String[]}      languagesAvailable App languages available
+ * @return {Promise<Void>}
+ */
+async function removeMasLanguages(appPath, languagesAvailable) {
+
+	const basePath = path.join(__dirname, '../../..');
+
+	let elements;
+	await new Promise((resolve, reject) => {
+		var getDirectories = function (src, callback) {
+			glob(src + '/**/*', callback);
+		};
+		getDirectories(basePath + '/' + appPath + '/Contents/Resources', function (err, res) {
+			if (err) {
+				reject(false);
+			} else {
+				elements = res;
+				resolve(res);
+			}
+		});
+	});
+
+	for (let i = 0; i < languagesAvailable.length; i++) {
+		languagesAvailable[i] = languagesAvailable[i] += '.lproj';
+	}
+
+	let elementName;
+	elements.forEach(element => {
+		elementName = element.substring(element.lastIndexOf('/') + 1, element.length);
+		if (elementName && elementName.includes('.lproj') && !languagesAvailable.includes(elementName)) {
+			fs.rmdirSync(element);
+		}
+	});
+
+}
+
 module.exports = {
 	prepareFolders,
 	removeBuildFolder,
 	removeReleaseFolder,
 	removeLinuxBuildFolder,
 	removeLinuxPreReleaseFolder,
-	prepareIcon
+	prepareIcon,
+	removeMasLanguages
 }

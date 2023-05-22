@@ -41,9 +41,9 @@ async function removeServerDev(folder) {
 }
 
 /**
- * Add string(s) to packaje.json
- * @param  {String}          folder  OS build folder
- * @param  {String[]}        strings Strings to add
+ * Add string(s) to package.json
+ * @param  {String}           folder  OS build folder
+ * @param  {String[]}         strings Strings to add
  * @return {Promise<Boolean>}
  */
 async function addToPackageJson(folder, strings) {
@@ -85,13 +85,40 @@ async function copyFile(folder, subFolder, currentName, newName) {
 
     const releasePath = path.join(__dirname, '../../../release');
 
-	fs.copyFileSync(`${basePath}/${folder}/${subFolder}/${currentName}`, `${releasePath}/${newName}`);
+    fs.copyFileSync(`${basePath}/${folder}/${subFolder}/${currentName}`, `${releasePath}/${newName}`);
 
+}
+
+/**
+ * Override package.json name
+ * @param  {String}           folder OS build folder
+ * @param  {String}           name   New name
+ * @return {Promise<Boolean>}
+ */
+async function overridePackageJsonName(folder, name) {
+
+    const filePath = `${basePath}/${folder}/package.json`;
+
+    const packageJson = await JSON.parse(fs.readFileSync(filePath, { encoding: 'utf8' }));
+    if (!packageJson) {
+        return false;
+    }
+
+    packageJson.name = name;
+
+    fs.writeFileSync(filePath, JSON.stringify(packageJson), { encoding: 'utf8' },
+        (error) => {
+            new Error(error);
+        }
+    );
+
+    return true;
 }
 
 module.exports = {
     removeServerReadme,
     removeServerDev,
     addToPackageJson,
-    copyFile
+    copyFile,
+    overridePackageJsonName
 }

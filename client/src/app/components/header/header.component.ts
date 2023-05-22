@@ -86,8 +86,8 @@ export class HeaderComponent implements OnInit {
 
 	/** 
 	 * Load device detail
-     * @return {Void}
-     */
+	 * @return {Void}
+	 */
 	private _loadDeviceDetails(): void {
 
 		setTimeout(() => {
@@ -128,12 +128,12 @@ export class HeaderComponent implements OnInit {
 
 	/**
 	 * Get current device details
-     * @return {Promise<CurrentDevice>} Device details
-     */
+	 * @return {Promise<CurrentDevice>} Device details
+	 */
 	private async _getCurrentDeviceDetails(): Promise<CurrentDevice> {
 
 		// Get default system language
-		let defaultLanguage: string = '';
+		let defaultLanguage: string = LANGUAGE_CODE_US;
 		// Find if system has only one language
 		if (navigator.languages.length === 1) {
 
@@ -162,12 +162,12 @@ export class HeaderComponent implements OnInit {
 		const defaultTheme: string = window.matchMedia('(prefers-color-scheme:dark)').matches ? ThemeList.DARK : ThemeList.LIGHT;
 
 		let deviceDetail!: CurrentDevice;
-		await new Promise((resolve, reject) => {
+		return new Promise((resolve, reject) => {
 
 			this._deviceApiService.getCurrentDeviceDetails(defaultLanguage, defaultTheme).subscribe(
 				(currentDeviceDetail: CurrentDevice) => {
 					deviceDetail = currentDeviceDetail;
-					resolve();
+					resolve(deviceDetail);
 				},
 				(error) => {
 					reject();
@@ -175,14 +175,12 @@ export class HeaderComponent implements OnInit {
 			);
 
 		});
-
-		return deviceDetail;
 	}
 
 	/**
 	 * Update device name on input's focus out
 	 * @param  {String} name Updated device name
-     */
+	 */
 	public async handleFocusOutName(name: string | undefined) {
 		if (name) {
 			this._configApiService.updateName(name).subscribe(
@@ -200,7 +198,7 @@ export class HeaderComponent implements OnInit {
 	 * Update device theme
 	 * @param  {String} theme Current device theme
 	 * @return {Void}
-     */
+	 */
 	public handleClickTheme(currentTheme: string | undefined): void {
 
 		if (currentTheme) {
@@ -220,7 +218,7 @@ export class HeaderComponent implements OnInit {
 	 * Update device language
 	 * @param  {String} language Updated device language
 	 * @return {Void}
-     */
+	 */
 	public handleClickLanguage(language: string): void {
 
 		if (language) {
@@ -239,7 +237,7 @@ export class HeaderComponent implements OnInit {
 	 * Tells if the device use US language
 	 * @param  {String}  language Device language
 	 * @return {Boolean}          True if device use US language
-     */
+	 */
 	private _isUsLanguage(language: string): boolean {
 		return language.includes('-') && language.split('-')[1].toLowerCase() === LANGUAGE_CODE_US;
 	}
@@ -247,7 +245,7 @@ export class HeaderComponent implements OnInit {
 	/**
 	 * Get wired connection description to translate it
 	 * @return {String} Wired description
-     */
+	 */
 	public get wiredConnection(): string {
 		return WIRED_CONNECTION;
 	}

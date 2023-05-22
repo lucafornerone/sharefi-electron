@@ -9,7 +9,7 @@
  */
 
 // Npm modules
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu } = require('electron');
 const url = require('url');
 const path = require('path');
 
@@ -78,11 +78,20 @@ function createWindow() {
 		})
 	);
 
-
 	// Open the DevTools
 	// win.webContents.openDevTools();
 	// Remove app default menu
 	win.removeMenu();
+
+	if (process.platform === 'darwin') {
+		let items = Menu.getApplicationMenu().items;
+		items.splice(4, 1);
+		Menu.setApplicationMenu(Menu.buildFromTemplate(items));
+
+		win.on('close', () => {
+			app.quit();
+		});
+	}
 }
 
 // Ignore Chromium selfsigned warning errors
