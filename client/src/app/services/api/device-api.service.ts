@@ -86,7 +86,7 @@ export class DeviceApiService {
  	 * @return {Observable<Boolean>}    Ping success status
  	 */
 	public pingDeviceByIp(ip: string): Observable<boolean> {
-		return this._http.get<boolean>(this._apiService.getUrl(ip, DEVICE_PATH, ApiName.DEVICE_PING), { headers: new HttpHeaders({ timeout: `${2000}` }) }).pipe(
+		return this._http.get<boolean>(this._apiService.getUrl(ip, DEVICE_PATH, ApiName.DEVICE_PING), { headers: new HttpHeaders({ timeout: `${5000}` }) }).pipe(
 			map(result => result),
 			catchError(error => of(error))
 		);

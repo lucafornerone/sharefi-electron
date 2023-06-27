@@ -1,11 +1,11 @@
-# Build: electron-packager for the different operating systems
+# Builds for the different operating systems
 
 ## Purpose
 This Node.js project allows you to create App's portable packages or installer files.
 
 
 ## Common prerequisites
-* Node.js, if you have not, [download and install it](https://nodejs.org/en/download/); then install all required packages: `npm install`
+* Node.js v18.x, if you have not, [download and install it](https://nodejs.org/en/download/); then install all required packages: `npm install`
 
 * Angular, you can install it with: `npm install -g angular-cli`
 
@@ -13,16 +13,24 @@ This Node.js project allows you to create App's portable packages or installer f
 
 #### Prerequisites:
 * Xcode
-* [Python](https://www.python.org/downloads/mac-osx/)
+
+#### MAS Prerequisites:
+* Set app bundle id in `/build/package.json` on `build:darwin-mas` script
+* Set provisioning profile and team ID in `/build/scripts/darwin/sign.js`
+* Set team ID and project path in `/build/scripts/darwin/resign-package.sh`
+* Set team ID and app bundle id in `/build/platforms/macos/mas/entitlements.mas.plist`
 
 #### Build options:
-For macOS you can create a portable file (.app) or create the installer (.dmg), build scripts must be run from ./platforms/macos:
+For macOS you can create a portable file (.app), create the installer (.dmg) or MAS installer (.pkg), build scripts must be run from ./platforms/macos:
 
 * Portable 64-bit, run:
 `node build-darwin-portable-x64.js`
 
 * Installer 64-bit, run:
 `node build-darwin-installer-x64.js`
+
+* Mac App Store, run:
+`node build-darwin-mas.js`
 
 # Windows
 

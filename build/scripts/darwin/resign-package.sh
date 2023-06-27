@@ -2,18 +2,19 @@
 
 printf "......................\nresignAndPackage start\n\n"
 
-# Name of your app.
+# App name
 APP="sharefi"
-# Your Certificate name.
-CERT="<keychain-certificate-name>"
-# The path of your app to sign.
+# Certificate name
+CERT="Luca Fornerone (<TEAM>)"
+# Path of app to sign
 APP_PATH="<path-to-project>/release/mas/sharefi-mas-x64/$APP.app"
-# The path to the location you want to put the signed package.
+# Path to the location of the signed package
 RESULT_PATH="<path-to-project>/release/mas/sharefi-mas-x64/$APP-mac_store.pkg"
-# The name of certificates you requested.
+# Developer Application certificate
 APP_KEY="3rd Party Mac Developer Application: $CERT"
+# Developer Installer certificate
 INSTALLER_KEY="3rd Party Mac Developer Installer: $CERT"
-# The path of your plist files.
+# Path of plist files
 PARENT_PLIST="<path-to-project>/build/platforms/macos/mas/entitlements.mas.plist"
 CHILD_PLIST="<path-to-project>/build/platforms/macos/mas/entitlements.mas.inherit.plist"
 LOGINHELPER_PLIST="<path-to-project>/build/platforms/macos/mas/entitlements.mas.loginhelper.plist"

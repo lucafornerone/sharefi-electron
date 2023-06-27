@@ -5,7 +5,7 @@
 
 /** Common */
 const appName = 'sharefi';
-const version = '0.3.8';
+const version = '0.4.1';
 const description = 'Share files through your local network';
 const author = 'Luca Fornerone';
 const completeName = 'sharefi-electron';

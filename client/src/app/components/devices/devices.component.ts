@@ -163,7 +163,6 @@ export class DevicesComponent implements OnInit {
 		forkJoin(ipDeviceNetworkList).subscribe((devicesNetwork: DeviceNetwork[]) => {
 
 			this.devices = devicesNetwork;
-			console.log(devicesNetwork);
 			// App is ready, remove loader
 			this._loaderService.hide();
 		});

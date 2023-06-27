@@ -1,13 +1,13 @@
 {
 	"name": "client",
-	"version": "0.3.0",
+	"version": "0.4.1",
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",
-		"build-dist": "ng build --prod --base-href ./"
+		"build-dist": "export NODE_OPTIONS=--openssl-legacy-provider && ng build --prod --base-href ./"
 	},
 	"private": true,
 	"dependencies": {

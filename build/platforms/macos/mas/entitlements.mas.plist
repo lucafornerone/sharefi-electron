@@ -16,7 +16,7 @@
         <true/>
         <key>com.apple.security.application-groups</key>
         <array>
-            <string>GROUP.app-bundle-id</string>
+            <string>TEAM.app-bundle-id</string>
         </array>    
     </dict>
 </plist>

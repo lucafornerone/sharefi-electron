@@ -12,7 +12,7 @@
 
 // Npm modules
 const fs = require('fs');
-const glob = require('glob');
+const { glob } = require('glob');
 
 // App modules
 const Item = require('../models/Item');
@@ -122,15 +122,8 @@ function _formatBytes(bytes, decimals = 2) {
  */
 async function _getTotFiles(path) {
 
-	const totFiles = await new Promise((resolve, reject) => {
-		let getDirectories = function (src, callback) {
-			glob(src + '/**/*', callback);
-		};
-		getDirectories(path, function (err, res) {
-			err ? reject() : resolve(res.length);
-		});
-	});
-	return totFiles && totFiles > 0 ? totFiles : 0;
+	const totFiles = await glob(path + '/**/*');
+	return totFiles ? totFiles.length : 0;
 }
 
 module.exports = {
