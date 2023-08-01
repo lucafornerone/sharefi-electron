@@ -63,9 +63,7 @@ const linuxConfig = {
 	snapPackageIcon: '{ "linux": { "target": "snap", "icon": "build/icons" } }',
 	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default","wireless-tools","net-tools","network-manager-pptp"] } } }',
 	snapPackageProductName: '{ "productName": "sharefi" }',
-	snapPrepareIconScript: 'prepare-snap-icon.sh',
-	snapLocalDevicesIndexJs: 'local-devices/src/index.js',
-	snapLocalDevicesParserJs: 'local-devices/src/parser/linux.js'
+	snapPrepareIconScript: 'prepare-snap-icon.sh'
 }
 
 module.exports = {

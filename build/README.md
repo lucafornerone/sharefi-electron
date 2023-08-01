@@ -37,7 +37,7 @@ For macOS you can create a portable file (.app), create the installer (.dmg) or 
 #### Prerequisites:
 * [Visual Studio](https://visualstudio.microsoft.com/), with "Desktop development with C++" workload
 * [Python](https://www.python.org/downloads/windows/)
-* [WixToolset](https://github.com/wixtoolset/wix3/releases), only for installer builds
+* [WixToolset](https://github.com/wixtoolset/wix3/releases) - only for installer builds
 
 #### Build options:
 For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or create the installer (.msi, 64-bit or 32-bit), build scripts must be run from ./platforms/windows:
@@ -58,8 +58,8 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or cr
 
 #### Prerequisites:
 * [Python](https://www.python.org/downloads/source/)
-* rpm-build, only for .rpm, you can install it with: `dnf install rpm-build`
-* [snapcraft](https://snapcraft.io/docs/installing-snapd) and [Multipass](https://multipass.run/), only for .snap
+* rpm-build - only for .rpm, you can install it with: `dnf install rpm-build`
+* [Multipass](https://multipass.run/), [snapcraft](https://snapcraft.io/docs/installing-snapd) (run `sudo snap install snapcraft --classic`) and electron-builder (run `npm install -g electron-builder`) - only for .snap
 
 #### Dependencies:
 * net-tools: [package](https://command-not-found.com/arp)

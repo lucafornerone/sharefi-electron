@@ -1,7 +1,5 @@
 /**
  * A script that allow to build Snap Linux installer x64
- *
- * @requires fs
  * 
  * @requires config
  * @requires client
@@ -9,9 +7,6 @@
  * @requires files
  * @requires npm_run
  */
-
-// Npm modules
-const fs = require('fs');
 
 // App modules
 const config = require('../../config');
@@ -56,11 +51,6 @@ async function build() {
 		if (!await folders.prepareIcon(config.linuxConfig.scriptFolder, config.linuxConfig.snapPrepareIconScript)) {
 			return;
 		}
-		console.log('Finish!');
-
-		console.log('Copy local-devices files...');
-		fs.copyFileSync(`../../scripts/${config.linuxConfig.scriptFolder}/${config.linuxConfig.snapLocalDevicesIndexJs}`, `../../${config.linuxConfig.buildFolder}/node_modules/${config.linuxConfig.snapLocalDevicesIndexJs}`);
-		fs.copyFileSync(`../../scripts/${config.linuxConfig.scriptFolder}/${config.linuxConfig.snapLocalDevicesParserJs}`, `../../${config.linuxConfig.buildFolder}/node_modules/${config.linuxConfig.snapLocalDevicesParserJs}`);
 		console.log('Finish!');
 
 		console.log('Build version...');
