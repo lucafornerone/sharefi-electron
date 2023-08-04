@@ -25,7 +25,8 @@
 		"glob": "^10.2.6",
 		"node-wifi": "^2.0.16",
 		"selfsigned": "^2.1.1",
-		"uuid": "^9.0.0"
+		"uuid": "^9.0.0",
+		"windows-release": "^5.1.1"
 	},
 	"devDependencies": {
 		"electron": "^24.3.1"
