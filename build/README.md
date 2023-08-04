@@ -38,6 +38,7 @@ For macOS you can create a portable file (.app), create the installer (.dmg) or 
 * [Visual Studio](https://visualstudio.microsoft.com/), with "Desktop development with C++" workload
 * [Python](https://www.python.org/downloads/windows/)
 * [WixToolset](https://github.com/wixtoolset/wix3/releases) - only for installer builds
+* Add `C:\Program Files (x86)\WiX Toolset v3.x\bin` to Path in Environment Variables, System variables
 
 #### Build options:
 For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or create the installer (.msi, 64-bit or 32-bit), build scripts must be run from ./platforms/windows:

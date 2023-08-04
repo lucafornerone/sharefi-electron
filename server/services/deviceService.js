@@ -38,7 +38,7 @@ const constant = require('../../constant');
  * @return {Promise<DeviceGeneric[]>} Devices generic details
  */
 async function findDevices() {
-	
+
 	try {
 
 		// Get current interface
@@ -187,11 +187,20 @@ async function _getNetworkName() {
 					if (error) {
 						reject();
 					}
-					// Take first connection's SSID
-					if (currentConnections && currentConnections.length > 0 && currentConnections[0].ssid) {
-						networkName = currentConnections[0].ssid;
+					// Get connection name
+					if (currentConnections && currentConnections.length > 0) {
+						if (os.platform() === 'win32') {
+							// Use windows-release to determinate Windows version
+							import('windows-release').then(windowsRelease => {
+								// On Windows 11 connection name is in bssid property
+								networkName = windowsRelease.default.call() === '11' ? currentConnections[0].bssid : currentConnections[0].ssid;
+								resolve();
+							});
+						} else {
+							networkName = currentConnections[0].ssid;
+							resolve();
+						}
 					}
-					resolve();
 				});
 
 			});
