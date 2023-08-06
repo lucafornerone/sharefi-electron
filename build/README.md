@@ -38,7 +38,8 @@ For macOS you can create a portable file (.app), create the installer (.dmg) or 
 * [Visual Studio](https://visualstudio.microsoft.com/), with "Desktop development with C++" workload
 * [Python](https://www.python.org/downloads/windows/)
 * [WixToolset](https://github.com/wixtoolset/wix3/releases) - only for installer builds
-* Add `C:\Program Files (x86)\WiX Toolset v3.x\bin` to Path in Environment Variables, System variables
+* Add `C:\Program Files (x86)\WiX Toolset v3.x\bin` to Path in Environment Variables, System variables - only for installer builds
+* [MSIX Packaging Tool](https://www.microsoft.com/store/productid/9N5LW3JBCXKF) - only for Microsoft Store build
 
 #### Build options:
 For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or create the installer (.msi, 64-bit or 32-bit), build scripts must be run from ./platforms/windows:
@@ -54,6 +55,9 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or cr
 
 * Installer 32-bit, run:
 `node build-windows-installer-x86.js`
+
+* Microsoft Store build
+Open MSIX Packaging Tool app, select `Application Package`, then select the Installer 64-bit file. After that select `Package Editor`, browse to the previously saved file, then select `Package files` and add to `Package/Assets` all icons from `/resources/msix`
 
 # Linux
 
