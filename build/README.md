@@ -56,7 +56,7 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit) or cr
 * Installer 32-bit, run:
 `node build-windows-installer-x86.js`
 
-* Microsoft Store build
+* Microsoft Store build:
 Open MSIX Packaging Tool app, select `Application Package`, then select the Installer 64-bit file. After that select `Package Editor`, browse to the previously saved file, then select `Package files` and add to `Package/Assets` all icons from `/resources/msix`
 
 # Linux
