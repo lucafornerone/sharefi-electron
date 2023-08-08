@@ -184,22 +184,21 @@ async function _getNetworkName() {
 
 				// List all wi-fi networks
 				nodeWifi.getCurrentConnections(function (error, currentConnections) {
-					if (error) {
+					if (error || !currentConnections || currentConnections.length === 0) {
 						reject();
 					}
+
 					// Get connection name
-					if (currentConnections && currentConnections.length > 0) {
-						if (os.platform() === 'win32') {
-							// Use windows-release to determinate Windows version
-							import('windows-release').then(windowsRelease => {
-								// On Windows 11 connection name is in bssid property
-								networkName = windowsRelease.default.call() === '11' ? currentConnections[0].bssid : currentConnections[0].ssid;
-								resolve();
-							});
-						} else {
-							networkName = currentConnections[0].ssid;
+					if (os.platform() === 'win32') {
+						// Use windows-release to determinate Windows version
+						import('windows-release').then(windowsRelease => {
+							// On Windows 11 connection name is in bssid property
+							networkName = windowsRelease.default.call() === '11' ? currentConnections[0].bssid : currentConnections[0].ssid;
 							resolve();
-						}
+						});
+					} else {
+						networkName = currentConnections[0].ssid;
+						resolve();
 					}
 				});
 
