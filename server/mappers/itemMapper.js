@@ -4,6 +4,7 @@
  * 
  * @requires fs
  * @requires glob
+ * @requires os
  * 
  * @requires Item
  * @requires ItemShare
@@ -13,6 +14,7 @@
 // Npm modules
 const fs = require('fs');
 const { glob } = require('glob');
+const os = require('os');
 
 // App modules
 const Item = require('../models/Item');
@@ -122,7 +124,7 @@ function _formatBytes(bytes, decimals = 2) {
  */
 async function _getTotFiles(path) {
 
-	const totFiles = await glob(path + '/**/*');
+	const totFiles = os.platform() === 'win32' ? await glob('**/*', { cwd: path, windowsPathsNoEscape: true }) : await glob(path + '/**/*');
 	return totFiles ? totFiles.length : 0;
 }
 

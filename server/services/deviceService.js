@@ -190,16 +190,19 @@ async function _getNetworkName() {
 
 					// Get connection name
 					if (os.platform() === 'win32') {
-						// Use windows-release to determinate Windows version
-						import('windows-release').then(windowsRelease => {
-							// On Windows 11 connection name is in bssid property
-							networkName = windowsRelease.default.call() === '11' ? currentConnections[0].bssid : currentConnections[0].ssid;
-							resolve();
-						});
+						// Check for Windows 11 - thanks to https://github.com/sindresorhus/windows-release/blob/main/index.js
+						const release = /(\d+\.\d+)(?:\.(\d+))?/.exec(os.release());
+						const version = release[1] || '';
+						const build = release[2] || '';
+						const isWindows11 = version === '10.0' && build.startsWith('2');
+
+						// On Windows 11 connection name is in bssid property
+						networkName = isWindows11 ? currentConnections[0].bssid : currentConnections[0].ssid;
 					} else {
 						networkName = currentConnections[0].ssid;
-						resolve();
 					}
+
+					resolve();
 				});
 
 			});
