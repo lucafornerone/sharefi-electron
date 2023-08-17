@@ -35,7 +35,7 @@ async function buildMsi(srcFolder, outFolder, name, arch, version, description, 
 		version: version,
 		description: description,
 		manufacturer: author,
-		appIconPath: `${resourcesPath}/${icon}`,
+		icon: `${resourcesPath}/${icon}`,
 		ui: {
 			chooseDirectory: true
 		}

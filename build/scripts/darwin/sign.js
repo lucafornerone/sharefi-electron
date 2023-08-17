@@ -25,7 +25,7 @@ async function signMasApp(appPath) {
         signAsync({
             app: `${basePath}/${appPath}`,
             provisioningProfile: '<path-to-provisioning-profile>',
-            identity: '<keychain-certificate-name>'
+            identity: '3rd Party Mac Developer Application: Luca Fornerone (<TEAM>)'
         })
             .then(function () {
                 resolve(true);

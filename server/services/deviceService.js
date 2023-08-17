@@ -2,11 +2,11 @@
  * A module that contains device's functions
  * @module deviceService
  *
- * @requires local-devices
  * @requires os
  * @requires node-wifi
  * @requires electron
  * @requires child_process
+ * @requires default-gateway
  *
  * @requires ConfigElement
  * @requires SupportedOS
@@ -18,12 +18,11 @@
  */
 
 // Npm modules
-const localDevices = require('local-devices');
 const os = require('os');
-const networkInterfaces = os.networkInterfaces();
 const nodeWifi = require('node-wifi');
 const { shell } = require('electron');
 const { execSync } = require('child_process');
+const defaultGateway = require('default-gateway');
 
 // App modules
 const ConfigElement = require('../enums/ConfigElement');
@@ -35,44 +34,30 @@ const itemService = require('./itemService');
 const constant = require('../../constant');
 
 /**
- * Find all devices connected to same local network
+ * Get all possible devices connected to same local network
  * @return {Promise<DeviceGeneric[]>} Devices generic details
  */
 async function findDevices() {
 
-	let devices = [];
-
 	try {
 
-		await new Promise((resolve, reject) => {
-
-			setTimeout(() => {
-				resolve();
-			}, 15000);
-
-			localDevices().then(devicesFounded => {
-				devices = devicesFounded;
-				resolve();
-			}, () => {
-				reject();
-			});
-
-		});
-
-		const ipList = _getIpList();
-
-		// Check the presence of the application device ip in device list founded
-		for (let i = 0; i < devices.length; i++) {
-			if (ipList.indexOf(devices[i].ip) >= 0) {
-				// Remove the application device from device list founded
-				devices.splice(i, 1);
-				break;
-			}
+		// Get current interface
+		const { gateway, interface } = await defaultGateway.v4();
+		// Get network info by interface and ipv
+		const networkInfo = os.networkInterfaces()[interface].find(n => n.family === constant.ipv);
+		// Get total hosts in current subnet
+		let totalHosts = constant.supportedSubnets.get(networkInfo.netmask);
+		if (totalHosts === undefined) {
+			// Use default subnet total hosts
+			totalHosts = constant.supportedSubnets.get(constant.defaultSubnet);
 		}
+		let ipList = _generateIpList(gateway, totalHosts - 1);
+		// Remove current ip
+		ipList = ipList.filter(ip => ip !== networkInfo.address);
+		return ipList.map(ip => ({ 'ip': ip }));
 
-		return devices;
 	} catch (error) {
-		return null;
+		return [];
 	}
 }
 
@@ -164,29 +149,6 @@ async function _getConfigElementValue(configElement, defaultValue) {
 }
 
 /**
- * Get device ip list
- * @return {String[]} Device ip list
- */
-function _getIpList() {
-
-	let ipList = [];
-
-	// Get ip addresses from network interfaces
-	for (const interfaceName of Object.keys(networkInterfaces)) {
-		for (const net of networkInterfaces[interfaceName]) {
-
-			// Skip over non application internet protocol version and internal addresses
-			if (net.family === constant.ipv && !net.internal) {
-				if (net.address) {
-					ipList.push(net.address);
-				}
-			}
-		}
-	}
-	return ipList;
-}
-
-/**
  * Get network name
  * @return {Promise<String>} Network name
  */
@@ -222,13 +184,24 @@ async function _getNetworkName() {
 
 				// List all wi-fi networks
 				nodeWifi.getCurrentConnections(function (error, currentConnections) {
-					if (error) {
+					if (error || !currentConnections || currentConnections.length === 0) {
 						reject();
 					}
-					// Take first connection's SSID
-					if (currentConnections && currentConnections.length > 0 && currentConnections[0].ssid) {
+
+					// Get connection name
+					if (os.platform() === 'win32') {
+						// Check for Windows 11 - thanks to https://github.com/sindresorhus/windows-release/blob/main/index.js
+						const release = /(\d+\.\d+)(?:\.(\d+))?/.exec(os.release());
+						const version = release[1] || '';
+						const build = release[2] || '';
+						const isWindows11 = version === '10.0' && build.startsWith('2');
+
+						// On Windows 11 connection name is in bssid property
+						networkName = isWindows11 ? currentConnections[0].bssid : currentConnections[0].ssid;
+					} else {
 						networkName = currentConnections[0].ssid;
 					}
+
 					resolve();
 				});
 
@@ -241,6 +214,30 @@ async function _getNetworkName() {
 
 	// If device is not connected to wifi, is connected through wired
 	return networkName ? networkName : constant.wiredConnectionDescription;
+}
+
+/**
+ * Generate N ip from start ip
+ * @param  {String}   ip Start ip
+ * @param  {Number}   n  Number of ip to generate
+ * @return {String[]}    Ip list
+ */
+function _generateIpList(ip, n) {
+	const ipParts = ip.split('.').map(Number);
+	let ipList = [];
+
+	for (let i = 0; i < n; i++) {
+		ipList.push(ipParts.join('.'));
+		ipParts[3]++;
+		for (let j = 3; j >= 0; j--) {
+			if (ipParts[j] > 255) {
+				ipParts[j] = 0;
+				ipParts[j - 1]++;
+			}
+		}
+	}
+
+	return ipList;
 }
 
 module.exports = {

@@ -48,6 +48,25 @@ const itemsSelection = 'multiSelections';
 /** Application wired connection description */
 const wiredConnectionDescription = 'Wired';
 
+/** Application default subnet */
+const defaultSubnet = '255.255.255.0';
+
+/** Application supported subnets with total hosts */
+const supportedSubnets = new Map([
+	['255.255.255.255', 1],
+	['255.255.255.254', 2],
+	['255.255.255.252', 4],
+	['255.255.255.248', 8],
+	['255.255.255.240', 16],
+	['255.255.255.224', 32],
+	['255.255.255.192', 64],
+	['255.255.255.128', 128],
+	[defaultSubnet, 256],
+	['255.255.254.0', 512],
+	['255.255.252.0', 1024],
+	['255.255.248.0', 2048]
+]);
+
 module.exports = {
 	appName,
 	encoding,
@@ -63,5 +82,7 @@ module.exports = {
 	ipv,
 	tmpFileExtension,
 	itemsSelection,
-	wiredConnectionDescription
+	wiredConnectionDescription,
+	defaultSubnet,
+	supportedSubnets
 }

@@ -11,7 +11,7 @@
 const exec = require('child_process').exec;
 const path = require('path');
 const fs = require('fs');
-const glob = require('glob');
+const { glob } = require('glob');
 
 /**
  * Prepare folders for build
@@ -44,7 +44,7 @@ async function removeBuildFolder(folder) {
 
 	const buildFolder = `${basePath}/${folder}`;
 	if (fs.existsSync(buildFolder)) {
-		fs.rmdirSync(buildFolder, { recursive: true });
+		fs.rmSync(buildFolder, { recursive: true });
 	}
 
 }
@@ -96,7 +96,7 @@ async function removeReleaseFolder(folder) {
 
 	const releaseFolder = `${releasePath}/${folder}`;
 	if (fs.existsSync(releaseFolder)) {
-		fs.rmdirSync(releaseFolder, { recursive: true });
+		fs.rmSync(releaseFolder, { recursive: true });
 	}
 
 }
@@ -150,20 +150,7 @@ async function removeMasLanguages(appPath, languagesAvailable) {
 
 	const basePath = path.join(__dirname, '../../..');
 
-	let elements;
-	await new Promise((resolve, reject) => {
-		var getDirectories = function (src, callback) {
-			glob(src + '/**/*', callback);
-		};
-		getDirectories(basePath + '/' + appPath + '/Contents/Resources', function (err, res) {
-			if (err) {
-				reject(false);
-			} else {
-				elements = res;
-				resolve(res);
-			}
-		});
-	});
+	const elements = await glob(basePath + '/' + appPath + '/Contents/Resources' + '/**/*');
 
 	for (let i = 0; i < languagesAvailable.length; i++) {
 		languagesAvailable[i] = languagesAvailable[i] += '.lproj';
@@ -176,7 +163,6 @@ async function removeMasLanguages(appPath, languagesAvailable) {
 			fs.rmdirSync(element);
 		}
 	});
-
 }
 
 module.exports = {

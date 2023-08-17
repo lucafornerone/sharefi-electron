@@ -166,7 +166,7 @@ export class DownloadService {
 			this._hasDownloadPageNewItem = true;
 			setTimeout(() => {
 				this._hasDownloadPageNewItem = false;
-			}, 2000); // Duration of the notification in nav component
+			}, 2_000); // Duration of the notification in nav component
 		}
 	}
 
