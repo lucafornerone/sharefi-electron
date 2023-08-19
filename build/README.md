@@ -14,7 +14,10 @@ This Node.js project allows you to create App's portable packages or installer f
 #### Prerequisites:
 * Xcode
 
-#### MAS Prerequisites:
+#### Portable prerequisites:
+* Set apple id and apple id password in `/build/package.json` on `build:darwin-portable-x64` script
+
+#### MAS prerequisites:
 * Set app bundle id in `/build/package.json` on `build:darwin-mas` script
 * Set provisioning profile and team ID in `/build/scripts/darwin/sign.js`
 * Set team ID and project path in `/build/scripts/darwin/resign-package.sh`

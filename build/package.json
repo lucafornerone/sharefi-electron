@@ -1,7 +1,7 @@
 {
 	"name": "sharefi-build",
 	"scripts": {
-		"build:darwin-portable-x64": "electron-packager ./app-darwin sharefi --overwrite --platform=darwin --arch=x64 --icon=../resources/sharefi.icns --out=../release/",
+		"build:darwin-portable-x64": "electron-packager ./app-darwin sharefi --overwrite --platform=darwin --arch=x64 --icon=../resources/sharefi.icns --out=../release/ --osx-sign --osx-notarize.appleId='<apple-id>' --osx-notarize.appleIdPassword='<apple-id-password>'",
 		"build:darwin-dmg-x64": "electron-installer-dmg ../release/sharefi-darwin-x64/sharefi.app sharefi --icon=../resources/sharefi.icns --overwrite --out=../release/",
 		"build:windows-portable-x64": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=x64 --overwrite --icon=../resources/sharefi.ico --out ../release/",
 		"build:windows-portable-x86": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=ia32 --overwrite --icon=../resources/sharefi.ico --out ../release/",
