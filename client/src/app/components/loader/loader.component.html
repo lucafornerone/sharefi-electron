@@ -17,7 +17,7 @@
 
 			<!-- Loader info -->
 			<p *ngIf="loaderService.isErrorVisible()">{{ 'loader.error' | translate }}</p>
-			<p *ngIf="!loaderService.isErrorVisible()">{{ 'loader.search' | translate }}</p>
+			<p *ngIf="loaderService.showSearchLabel && !loaderService.isErrorVisible()">{{ 'loader.search' | translate }}</p>
 
 		</div>
 	</div>

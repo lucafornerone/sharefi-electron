@@ -108,6 +108,8 @@ export class HeaderComponent implements OnInit {
 								// OS language not supported
 								this.device.language = environment.defaultLanguageCode;
 							}
+							// Language set, then show search label
+							this._loaderService.showSearchLabel = true;
 						}
 						if (this.device.theme) {
 							// Set theme
