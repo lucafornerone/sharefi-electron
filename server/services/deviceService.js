@@ -199,7 +199,11 @@ async function _getNetworkName() {
 						// On Windows 11 connection name is in bssid property
 						networkName = isWindows11 ? currentConnections[0].bssid : currentConnections[0].ssid;
 					} else {
-						networkName = currentConnections[0].ssid;
+						const majorVersion = Number(os.release().split('.')[0]);
+						// From macOS Sonoma 14.4 (major version 23) airport api is deprecated
+						// node-wifi issue: https://github.com/friedrith/node-wifi/issues/195
+						// Apple Developer Forums: https://forums.developer.apple.com/forums/thread/749405
+						networkName = majorVersion >= 23 ? '' : currentConnections[0].ssid;
 					}
 
 					resolve();
@@ -212,8 +216,14 @@ async function _getNetworkName() {
 		}
 	}
 
-	// If device is not connected to wifi, is connected through wired
-	return networkName ? networkName : constant.wiredConnectionDescription;
+	if(networkName === '') {
+		return null;
+	} else if (!!networkName) {
+		return networkName;
+	} else {
+		// If device is not connected to wifi, is connected through wired
+		return constant.wiredConnectionDescription;
+	}
 }
 
 /**
