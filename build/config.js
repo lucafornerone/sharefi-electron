@@ -61,7 +61,7 @@ const linuxConfig = {
 	releaseSnap: 'snap',
 	releaseSnapScript: 'electron-builder --linux snap',
 	snapPackageIcon: '{ "linux": { "target": "snap", "icon": "build/icons" } }',
-	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default","wireless-tools","net-tools","network-manager-pptp"] } } }',
+	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default", "wireless-tools", "net-tools", "network-manager-pptp"], "base": "core18" } } }',
 	snapPackageProductName: '{ "productName": "sharefi" }',
 	snapPrepareIconScript: 'prepare-snap-icon.sh'
 }
