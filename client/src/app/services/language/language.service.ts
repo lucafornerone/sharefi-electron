@@ -16,13 +16,13 @@ export const LANGUAGE_CODE_ES: string = 'es';
 export const LANGUAGE_CODE_EN: string = 'en';
 export const LANGUAGE_CODE_FR: string = 'fr';
 export const LANGUAGE_CODE_IT: string = 'it';
-export const LANGUAGE_CODE_US: string = 'us';
+export const LANGUAGE_CODE_PT: string = 'pt';
 
 // Available languages
 export const LANGUAGES: Language[] = [
 	{
 		code: LANGUAGE_CODE_DE,
-		description: 'Deutsche'
+		description: 'Deutsch'
 	},
 	{
 		code: LANGUAGE_CODE_ES,
@@ -41,8 +41,8 @@ export const LANGUAGES: Language[] = [
 		description: 'Italiano'
 	},
 	{
-		code: LANGUAGE_CODE_US,
-		description: 'English'
+		code: LANGUAGE_CODE_PT,
+		description: 'Português'
 	}
 ]
 
@@ -66,11 +66,7 @@ export class LanguageService {
 	 * @return {string[]} Available languages code
 	 */
 	public get availableLanguagesCode(): string[] {
-		let codes: string[] = [];
-		LANGUAGES.forEach(language => {
-			codes.push(language.code);
-		});
-		return codes;
+		return LANGUAGES.map(l => l.code);
 	}
 
 }

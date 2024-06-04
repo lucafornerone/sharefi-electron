@@ -9,7 +9,7 @@ const version = '0.4.1';
 const description = 'Share files through your local network';
 const author = 'Luca Fornerone';
 const completeName = 'sharefi-electron';
-const languagesAvailable = ['de', 'en', 'es', 'fr', 'it'];
+const languagesAvailable = ['de', 'en', 'es', 'fr', 'it', 'pt_BR', 'pt_PT'];
 
 /** macOS */
 const macOsConfig = {

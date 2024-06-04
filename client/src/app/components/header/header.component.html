@@ -70,17 +70,11 @@
 
 			<!-- Language -->
 			<button *ngIf="device.language" mat-icon-button [matMenuTriggerFor]="menuLanguage">
-				<mat-icon>
-					<img width=" 100%" height="100%" class="language-icon" src="assets/flags/{{device.language}}.svg" />
-				</mat-icon>
+				<span style="text-transform: uppercase;">{{device.language}}</span>
 			</button>
 			<mat-menu #menuLanguage="matMenu" class="header-component-language-menu">
 				<button mat-menu-item *ngFor="let language of languageService.availableLanguages"
 					[disabled]="device.language === language.code" (click)="handleClickLanguage(language.code)">
-					<mat-icon>
-						<img width=" 100%" height="100%" class="language-icon"
-							src="assets/flags/{{language.code}}.svg" />
-					</mat-icon>
 					<span>{{language.description}}</span>
 				</button>
 			</mat-menu>
