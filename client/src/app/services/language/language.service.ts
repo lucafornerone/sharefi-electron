@@ -2,6 +2,8 @@
  * A service that handle language
  *
  * @requires Injectable
+ * 
+ * @requires Language
  */
 
 // Npm modules
