@@ -16,6 +16,8 @@ export class LoaderService {
 	private _isVisible: boolean = false;
 	// Current loader error label status
 	private _isErrorVisible: boolean = false;
+	// Search label visibility
+	private _showSearchLabel: boolean = false;
 
 	constructor() { }
 
@@ -61,6 +63,21 @@ export class LoaderService {
  	 */
 	public isErrorVisible(): boolean {
 		return this._isErrorVisible;
+	}
+
+	/**
+	 * Get search label visibility
+ 	 * @return {Boolean} Search label visibility
+ 	 */
+	public get showSearchLabel(): boolean {
+		return this._showSearchLabel;
+	}
+
+	/**
+	 * Set search label visibility
+	 */
+	public set showSearchLabel(isVisible: boolean) {
+		this._showSearchLabel = isVisible;
 	}
 
 }

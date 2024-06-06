@@ -5,11 +5,11 @@
 
 /** Common */
 const appName = 'sharefi';
-const version = '0.4.1';
+const version = '0.5.0';
 const description = 'Share files through your local network';
 const author = 'Luca Fornerone';
 const completeName = 'sharefi-electron';
-const languagesAvailable = ['de', 'en', 'es', 'fr', 'it'];
+const languagesAvailable = ['de', 'en', 'es', 'fr', 'it', 'pt_BR', 'pt_PT'];
 
 /** macOS */
 const macOsConfig = {
@@ -42,7 +42,8 @@ const windowsConfig = {
 	npmPortable86Path: 'sharefi-win32-ia32',
 	msiOutFolder64: 'sharefi-win32-x64-msi',
 	msiOutFolder86: 'sharefi-win32-ia32-msi',
-	npmInstallerFile: 'sharefi.msi'
+	npmInstallerFile: 'sharefi.msi',
+	npmStore64Script: 'build:windows-store-x64'
 }
 
 /** Linux */
@@ -61,7 +62,7 @@ const linuxConfig = {
 	releaseSnap: 'snap',
 	releaseSnapScript: 'electron-builder --linux snap',
 	snapPackageIcon: '{ "linux": { "target": "snap", "icon": "build/icons" } }',
-	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default","wireless-tools","net-tools","network-manager-pptp"] } } }',
+	snapPackageOutput: '{ "build": { "directories": { "output": "snap" }, "snap": { "stagePackages": ["default", "wireless-tools", "net-tools", "network-manager-pptp"], "base": "core18" } } }',
 	snapPackageProductName: '{ "productName": "sharefi" }',
 	snapPrepareIconScript: 'prepare-snap-icon.sh'
 }

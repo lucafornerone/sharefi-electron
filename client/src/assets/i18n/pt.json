@@ -1,0 +1,65 @@
+{
+	"generic": {
+		"refresh": "Atualizar",
+		"close": "Fechar",
+		"wired": "Com fio"
+	},
+	"nav": {
+		"devices": "Dispositivos",
+		"shares": "Compartilhamentos",
+		"download": "Downloads"
+	},
+	"devices": {
+		"title": "Dispositivos conectados",
+		"notFound": "Nenhum dispositivo encontrado"
+	},
+	"table": {
+		"tagFilter": "Filtrar por tag",
+		"type": "Tipo",
+		"name": "Nome",
+		"size": "Tamanho / Elementos",
+		"tag": "Tag",
+		"noElements": "Sem elementos",
+		"of": "de",
+		"from": "Dispositivo",
+		"downloaded": "Baixado",
+		"status": "Status"
+	},
+	"download": {
+		"title": "Meus downloads",
+		"individual": "Baixar itens individualmente",
+		"zip": "Baixar como único arquivo zip",
+		"elements": "elementos",
+		"remove": "Remover itens selecionados",
+		"stop": "Parar de baixar todos os itens",
+		"filter": "Filtrar por dispositivo de origem",
+		"interrupt": "Interromper",
+		"download": "Baixar",
+		"status": {
+			"started": "Iniciado",
+			"inProgress": "Em progresso",
+			"ended": "Concluído",
+			"error": "Erro",
+			"interrupted": "Interrompido",
+			"downloaded": "Baixado"
+		}
+	},
+	"shares": {
+		"title": "Meus compartilhamentos",
+		"file": "Compartilhar arquivos",
+		"folder": "Compartilhar pasta",
+		"remove": "Remover compartilhamento dos itens selecionados",
+		"dialog": {
+			"share": "Compartilhar",
+			"file": "arquivo",
+			"folder": "pasta",
+			"folders": "pastas",
+			"tag": "Digite uma tag para identificar este compartilhamento",
+			"button": "Compartilhar"
+		}
+	},
+	"loader": {
+		"search": "Procurando dispositivos...",
+		"error": "Erro ao abrir o aplicativo"
+	}
+}

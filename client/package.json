@@ -1,9 +1,9 @@
 {
 	"name": "client",
-	"version": "0.4.1",
+	"version": "0.5.0",
 	"scripts": {
 		"ng": "ng",
-		"start": "ng serve",
+		"start": "export NODE_OPTIONS=--openssl-legacy-provider && ng serve",
 		"build": "ng build",
 		"test": "ng test",
 		"lint": "ng lint",

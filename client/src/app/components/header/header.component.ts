@@ -32,7 +32,7 @@ import { ThemeService } from '@services/theme/theme.service';
 import { RoutingService } from '@services/routing/routing.service';
 import { RoutingList } from '@enums/routing-list';
 import { LoaderService } from '@services/loader/loader.service';
-import { LanguageService, LANGUAGE_CODE_US } from '@services/language/language.service';
+import { LanguageService, LANGUAGE_CODE_EN } from '@services/language/language.service';
 import { NetworkService } from '@services/network/network.service';
 
 /* Wired connection description */
@@ -108,6 +108,8 @@ export class HeaderComponent implements OnInit {
 								// OS language not supported
 								this.device.language = environment.defaultLanguageCode;
 							}
+							// Language set, then show search label
+							this._loaderService.showSearchLabel = true;
 						}
 						if (this.device.theme) {
 							// Set theme
@@ -133,31 +135,16 @@ export class HeaderComponent implements OnInit {
 	private async _getCurrentDeviceDetails(): Promise<CurrentDevice> {
 
 		// Get default system language
-		let defaultLanguage: string = LANGUAGE_CODE_US;
-		// Find if system has only one language
-		if (navigator.languages.length === 1) {
-
-			// Search for US language
-			if (this._isUsLanguage(navigator.languages[0])) {
-				// Use US language
-				defaultLanguage = LANGUAGE_CODE_US;
-			} else {
-				defaultLanguage = navigator.languages[0].split('-')[0];
-			}
-		} else {
-			for (let i = 0; i < navigator.languages.length; i++) {
-
-				// Search for US language
-				if (navigator.languages[i].length === 5 && this._isUsLanguage(navigator.languages[i])) {
-					defaultLanguage = LANGUAGE_CODE_US;
-					break;
-				} else if (navigator.languages[i].length === 2) {
-					// Native device language code (ISO 639-1)
-					defaultLanguage = navigator.languages[i];
-					break;
-				}
+		let defaultLanguage: string = LANGUAGE_CODE_EN;
+		if (navigator.languages.length > 1) {
+			try {
+				// Get native device language code (ISO 639-1)
+				defaultLanguage = navigator.languages[0].length === 2 ? navigator.languages[0] : navigator.languages[0].split('-')[0];
+			} catch (error) {
+				console.error(error);
 			}
 		}
+
 		// Get default system theme
 		const defaultTheme: string = window.matchMedia('(prefers-color-scheme:dark)').matches ? ThemeList.DARK : ThemeList.LIGHT;
 
@@ -231,15 +218,6 @@ export class HeaderComponent implements OnInit {
 				}
 			);
 		}
-	}
-
-	/**
-	 * Tells if the device use US language
-	 * @param  {String}  language Device language
-	 * @return {Boolean}          True if device use US language
-	 */
-	private _isUsLanguage(language: string): boolean {
-		return language.includes('-') && language.split('-')[1].toLowerCase() === LANGUAGE_CODE_US;
 	}
 
 	/**
