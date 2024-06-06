@@ -61,7 +61,7 @@ For Windows you can create a portable folder (with .exe, 64-bit or 32-bit), crea
 * Installer 32-bit, run:
 `node build-windows-installer-x86.js`
 
-* Microsoft Store, run:
+* Microsoft Store, run (as Administrator):
 `node build-windows-store-x64.js`
 
 # Linux

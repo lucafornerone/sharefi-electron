@@ -6,6 +6,7 @@
 		"build:darwin-mas": "electron-packager ./app-darwin sharefi --overwrite --platform=mas --arch=x64 --asar --icon=../resources/sharefi.icns --out=../release/mas/ --build-version=<x> --app-bundle-id=<app-bundle-id>",
 		"build:windows-portable-x64": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=x64 --overwrite --icon=../resources/sharefi.ico --out ../release/",
 		"build:windows-portable-x86": "electron-packager ./app-windows sharefi --asar --platform=win32 --arch=ia32 --overwrite --icon=../resources/sharefi.ico --out ../release/",
+		"build:windows-store-x64": "electron-packager ./app-windows sharefi --platform=win32 --arch=x64 --overwrite --icon=../resources/sharefi.ico --out ../release/",
 		"build:linux-x64": "electron-packager ./app-linux --asar --platform=linux --arch=x64 --overwrite --icon=../resources/sharefi.png --out ../release/",
 		"build:linux-x86": "electron-packager ./app-linux --asar --platform=linux --arch=ia32 --overwrite --icon=../resources/sharefi.png --out ../release/",
 		"build:linux-deb-x64": "electron-installer-debian --src ../release/sharefi-electron-linux-x64/ --dest ../release/ --arch amd64 --icon ../resources/sharefi.png --options.productName sharefi",

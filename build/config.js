@@ -42,7 +42,8 @@ const windowsConfig = {
 	npmPortable86Path: 'sharefi-win32-ia32',
 	msiOutFolder64: 'sharefi-win32-x64-msi',
 	msiOutFolder86: 'sharefi-win32-ia32-msi',
-	npmInstallerFile: 'sharefi.msi'
+	npmInstallerFile: 'sharefi.msi',
+	npmStore64Script: 'build:windows-store-x64'
 }
 
 /** Linux */
