@@ -1,0 +1,57 @@
+{
+  "productName": "Sharefi",
+  "appId": "com.lucafornerone.sharefi",
+  "buildVersion": "10004",
+  "linux": {
+    "category": "Utility",
+    "executableName": "sharefi-electron",
+    "executableArgs": [
+      "--no-sandbox",
+      "--disable-gpu-sandbox",
+      "--disable-dev-shm-usage",
+      "--disable-namespace-sandbox"
+    ]
+  },
+  "snapcraft": {
+    "base": "core24",
+    "core24": {
+      "confinement": "strict",
+      "plugs": ["network-bind", "network-observe"],
+      "stagePackages": ["net-tools", "iputils-ping"]
+    }
+  },
+  "mac": {
+    "target": ["zip", "dmg"],
+    "hardenedRuntime": true,
+    "gatekeeperAssess": false,
+    "notarize": true,
+    "extendInfo": {
+      "NSLocalNetworkUsageDescription": "Local network access is required to discover other devices on your network."
+    }
+  },
+  "dmg": {
+    "sign": true
+  },
+  "mas": {
+    "entitlements": "dist/release/build/mas/entitlements.mas.plist",
+    "entitlementsInherit": "dist/release/build/mas/entitlements.mas.inherit.plist",
+    "entitlementsLoginHelper": "dist/release/build/mas/entitlements.mas.loginhelper.plist",
+    "provisioningProfile": "dist/release/build/mas/embedded.provisionprofile"
+  },
+  "win": {
+    "target": ["portable", "nsis", "appx"]
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  },
+  "appx": {
+    "applicationId": "SHAREFI",
+    "publisherDisplayName": "Luca Fornerone",
+    "displayName": "Sharefi",
+    "backgroundColor": "transparent",
+    "languages": ["en", "de", "es", "fr", "it", "pt"]
+  }
+}
