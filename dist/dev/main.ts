@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import { initializeApp } from '../../src/core/lib/startup.ts';
 
 function createDevWindow() {
@@ -15,9 +15,26 @@ function createDevWindow() {
   win.removeMenu();
 }
 
+function enableIpcLogging() {
+  const originalHandle = ipcMain.handle.bind(ipcMain);
+  ipcMain.handle = <T extends (...args: never[]) => unknown>(
+    channel: string,
+    listener: (
+      event: Electron.IpcMainInvokeEvent,
+      ...args: Parameters<T>
+    ) => ReturnType<T> | Promise<ReturnType<T>>
+  ) => {
+    return originalHandle(channel, (event, ...args: Parameters<T>) => {
+      console.log(`[IPC-MAIN] ${channel}`, args);
+      return listener(event, ...args);
+    });
+  };
+}
+
 app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 app.commandLine.appendSwitch('disable-web-security');
 app.whenReady().then(async () => {
+  enableIpcLogging();
   await initializeApp();
   createDevWindow();
 

@@ -17,7 +17,7 @@ export async function openServer() {
         },
       },
       (info) => {
-        console.log(`Server is running on port ${info.port}`);
+        console.log(`[CORE] Server is running on port ${info.port}`);
         resolve(true);
       }
     );
