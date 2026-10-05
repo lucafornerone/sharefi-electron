@@ -25,6 +25,7 @@
     "hardenedRuntime": true,
     "gatekeeperAssess": false,
     "notarize": true,
+    "electronLanguages": ["en", "de", "es", "fr", "it", "pt_BR", "pt_PT"],
     "extendInfo": {
       "NSLocalNetworkUsageDescription": "Local network access is required to discover other devices on your network."
     }
