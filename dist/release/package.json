@@ -1,9 +1,9 @@
 {
-    "name": "sharefi",
-    "description": "Share files and folders through your local network. It is fast, secure, free, easy to use, open source and cross platform.",
-    "author": "Luca Fornerone <sharefiapp@gmail.com>",
-    "version": "1.0.0",
-    "main": "main.js",
-    "desktopName": "sharefi",
-    "homepage": "https://sharefi.app"
+  "name": "sharefi",
+  "description": "Share files and folders through your local network. It is fast, secure, free, easy to use, open source and cross platform.",
+  "author": "Luca Fornerone <sharefiapp@gmail.com>",
+  "version": "1.0.0",
+  "main": "main.js",
+  "desktopName": "sharefi",
+  "homepage": "https://sharefi.app"
 }

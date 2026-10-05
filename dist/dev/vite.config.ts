@@ -2,7 +2,7 @@ import electron from 'vite-plugin-electron/simple';
 
 export default {
   server: {
-    port: 5174
+    port: 5174,
   },
   plugins: [
     electron({
@@ -11,7 +11,7 @@ export default {
         vite: {
           build: {
             outDir: 'main',
-            emptyOutDir: true
+            emptyOutDir: true,
           },
         },
       },
@@ -20,13 +20,13 @@ export default {
         vite: {
           build: {
             outDir: 'preload',
-            emptyOutDir: true
+            emptyOutDir: true,
           },
         },
       },
     }),
   ],
   build: {
-    lib: {}
-  }
-}
+    lib: {},
+  },
+};
