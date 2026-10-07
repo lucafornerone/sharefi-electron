@@ -40,5 +40,8 @@
   "cancel": "Cancelar",
   "restart": "Reiniciar",
   "retry": "Reintentar",
-  "save": "Guardar"
+  "save": "Guardar",
+  "unableConnectDevice": "No se pudo conectar al dispositivo",
+  "deviceOffline": "{device} podría estar desconectado o la aplicación podría haberse cerrado.",
+  "tryAgain": "Volver a intentar"
 }

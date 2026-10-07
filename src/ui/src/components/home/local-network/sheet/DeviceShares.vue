@@ -12,10 +12,12 @@ import {
 } from '@/components/ui/sheet';
 import { useDeviceDetail } from '@/composables/useNetwork.ts';
 import DeviceSharesEmpty from './DeviceSharesEmpty.vue';
+import DeviceSharesError from './DeviceSharesError.vue';
 import DeviceSharesItem from './DeviceSharesItem.vue';
+import DeviceSharesLoading from './DeviceSharesLoading.vue';
 
 const props = defineProps<{ device: LocalDevice; open: boolean }>();
-const { fetchSharedItems, items, isLoading } = useDeviceDetail();
+const { fetchSharedItems, items, isLoading, hasError } = useDeviceDetail();
 
 onMounted(() => {
   loadItems();
@@ -45,7 +47,9 @@ function loadItems() {
       <SheetDescription>{{ device.os }} • {{ device.ip }}</SheetDescription>
     </SheetHeader>
 
-    <DeviceSharesEmpty v-if="!isLoading && items.length === 0" class="m-4" :name="device.name" @refresh="loadItems()" />
+    <DeviceSharesLoading v-if="isLoading" />
+    <DeviceSharesError v-else-if="hasError" :name="device.name" @try-again="loadItems()" />
+    <DeviceSharesEmpty v-else-if="items.length === 0" :name="device.name" @refresh="loadItems()" />
     <div v-else class="no-scrollbar overflow-y-auto px-4 mt-4">
       <div class="flex w-full flex-col gap-6">
         <DeviceSharesItem v-for="item in items" :key="item.id" :ip="device.ip" :item="item" />

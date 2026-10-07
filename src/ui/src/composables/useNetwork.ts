@@ -53,12 +53,18 @@ export function useLocalDevices() {
 export function useDeviceDetail() {
   const items: Ref<SharedItem[]> = ref([]);
   const isLoading = ref(false);
+  const hasError = ref(false);
 
   async function fetchSharedItems(ip: string) {
     isLoading.value = true;
-    items.value = await getSharedItems(ip);
+    try {
+      items.value = await getSharedItems(ip);
+      hasError.value = false;
+    } catch (_error) {
+      hasError.value = true;
+    }
     isLoading.value = false;
   }
 
-  return { fetchSharedItems, items, isLoading };
+  return { fetchSharedItems, items, isLoading, hasError };
 }

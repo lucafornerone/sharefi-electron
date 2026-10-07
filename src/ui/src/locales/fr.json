@@ -40,5 +40,8 @@
   "cancel": "Annuler",
   "restart": "Recommencer",
   "retry": "Réessayer",
-  "save": "Enregistrer"
+  "save": "Enregistrer",
+  "unableConnectDevice": "Impossible de se connecter à l'appareil",
+  "deviceOffline": "{device} est peut-être hors ligne ou l'application a été fermée.",
+  "tryAgain": "Réessayer"
 }
