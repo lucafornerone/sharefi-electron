@@ -112,8 +112,7 @@ const binaryList: PlatformProps[] = [
 ];
 
 const isOpen = ref<boolean>(false);
-const mode = useColorMode();
-mode.value = 'dark';
+const mode = useColorMode({ initialValue: 'dark' });
 </script>
 
 <template>
