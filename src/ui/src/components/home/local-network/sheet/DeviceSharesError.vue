@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { PaperclipIcon } from '@lucide/vue';
+import { RepeatOff } from '@lucide/vue';
 import { Button } from '@/components/ui/button';
 import {
   Empty,
@@ -10,7 +10,7 @@ import {
   EmptyTitle,
 } from '@/components/ui/empty';
 
-defineEmits(['refresh']);
+defineEmits(['tryAgain']);
 defineProps<{ name: string }>();
 </script>
 
@@ -18,14 +18,14 @@ defineProps<{ name: string }>();
   <Empty class="border border-dashed m-4">
     <EmptyHeader>
       <EmptyMedia variant="icon">
-        <PaperclipIcon />
+        <RepeatOff />
       </EmptyMedia>
-      <EmptyTitle>{{ $t('noShares') }}</EmptyTitle>
-      <EmptyDescription>{{ $t('networkDeviceNoShares', { device: name }) }}</EmptyDescription>
+      <EmptyTitle>{{ $t('unableConnectDevice') }}</EmptyTitle>
+      <EmptyDescription>{{ $t('deviceOffline', { device: name }) }}</EmptyDescription>
     </EmptyHeader>
     <EmptyContent>
-      <Button variant="outline" size="sm" @click="$emit('refresh')">
-        {{ $t('refresh') }}
+      <Button variant="outline" size="sm" @click="$emit('tryAgain')">
+        {{ $t('tryAgain') }}
       </Button>
     </EmptyContent>
   </Empty>

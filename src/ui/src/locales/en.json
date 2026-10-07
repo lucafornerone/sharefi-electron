@@ -40,5 +40,8 @@
   "cancel": "Cancel",
   "restart": "Restart",
   "retry": "Retry",
-  "save": "Save"
+  "save": "Save",
+  "unableConnectDevice": "Unable to connect to the device",
+  "deviceOffline": "{device} might be offline or the application was closed.",
+  "tryAgain": "Try again"
 }

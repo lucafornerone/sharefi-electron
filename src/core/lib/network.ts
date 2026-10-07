@@ -4,6 +4,7 @@ import { v4LocalDevices } from 'network-local-devices';
 import { Agent, setGlobalDispatcher } from 'undici';
 import { SupportedOS } from '#core/types/core.types.ts';
 import { DeviceNetwork } from '#server/types/network.types.ts';
+import { APP_CONFIG } from '#shared/constants.ts';
 import type { LocalDevice } from '#shared/types/ipc.types.ts';
 import { ConnectionType } from '#shared/types/ipc.types.ts';
 import { deviceBaseUrl } from '#shared/utils.ts';
@@ -38,7 +39,7 @@ export async function findDevices(): Promise<LocalDevice[]> {
     try {
       const response = await fetch(url, {
         method: 'GET',
-        signal: AbortSignal.timeout(3_000),
+        signal: AbortSignal.timeout(APP_CONFIG.API_TIMEOUT),
       });
 
       if (!response.ok) {
