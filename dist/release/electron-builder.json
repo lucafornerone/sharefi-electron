@@ -1,7 +1,7 @@
 {
   "productName": "Sharefi",
   "appId": "com.lucafornerone.sharefi",
-  "buildVersion": "10004",
+  "buildVersion": "10100",
   "linux": {
     "category": "Utility",
     "executableName": "sharefi-electron",
