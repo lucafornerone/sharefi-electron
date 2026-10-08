@@ -38,9 +38,7 @@ jobs:
         run: sg lxd -c "npm run build:snap"
 
       - name: Publish to Snap Store
-        uses: snapcore/action-publish@v1
-        with:
-          snap: ./dist/release/dist/*.snap
-          release: stable
+        run: |
+          snapcraft upload ./dist/release/dist/*.snap --release stable
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
