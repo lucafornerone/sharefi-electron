@@ -25,7 +25,7 @@ function enableIpcLogging() {
     ) => ReturnType<T> | Promise<ReturnType<T>>
   ) => {
     return originalHandle(channel, (event, ...args: Parameters<T>) => {
-      console.log(`[IPC-MAIN] ${channel}`, args);
+      console.log(`[MAIN-IPC] ${channel}`, args);
       return listener(event, ...args);
     });
   };

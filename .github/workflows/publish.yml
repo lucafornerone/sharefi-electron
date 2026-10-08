@@ -1,0 +1,46 @@
+name: Publish
+description: Publish on Snapcraft
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-snap:
+    name: Build and publish snap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build ui and core
+        run: npm run build
+
+      - name: Install lxd and snapcraft
+        run: |
+          sudo snap install lxd
+          sudo lxd init --auto
+          sudo iptables -P FORWARD ACCEPT
+          sudo snap install snapcraft --channel=8.x/stable --classic
+          sudo usermod -aG lxd $USER
+
+      - name: Build snap
+        run: sg lxd -c "npm run build:snap"
+
+      - name: Publish to Snap Store
+        uses: snapcore/action-publish@v1
+        with:
+          snap: ./dist/release/dist/*.snap
+          release: stable
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
