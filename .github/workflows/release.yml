@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: read
 
 jobs:
   prepare:
@@ -88,7 +87,7 @@ jobs:
     needs: prepare
     strategy:
       matrix:
-        package-type: [snap, deb, rpm]
+        package-type: [deb, rpm]
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -103,19 +102,6 @@ jobs:
 
       - name: Build ui and core
         run: npm run build
-
-      - name: Install lxd and snapcraft
-        if: matrix.package-type == 'snap'
-        run: |
-          sudo snap install lxd
-          sudo lxd init --auto
-          sudo iptables -P FORWARD ACCEPT
-          sudo snap install snapcraft --channel=8.x/stable --classic
-          sudo usermod -aG lxd $USER
-
-      - name: Build snap
-        if: matrix.package-type == 'snap'
-        run: sg lxd -c "npm run build:snap"
 
       - name: Build deb
         if: matrix.package-type == 'deb'
