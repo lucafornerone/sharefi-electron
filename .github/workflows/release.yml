@@ -17,13 +17,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Read version from package.json
         id: read_version
         run: |
-          current_tag=$(jq -r '.version' dist/release/package.json)
-          echo "current_tag=$current_tag" >> $GITHUB_ENV
-          echo "version=$current_tag" >> $GITHUB_OUTPUT
+          current_version=$(jq -r '.version' dist/release/package.json)
+          echo "version=$current_version" >> $GITHUB_OUTPUT
 
       - name: Get previous tag
         run: |
@@ -39,11 +40,10 @@ jobs:
           script: |
             const { owner, repo } = context.repo;
             const previousTag = process.env.previous_tag;
-            const currentTag = process.env.current_tag;
 
             let commitList;
             if (previousTag) {
-              const commits = await github.rest.repos.compareCommits({ owner, repo, base: previousTag, head: currentTag });
+              const commits = await github.rest.repos.compareCommits({ owner, repo, base: previousTag, head: context.sha });
               // order from newest to oldest
               commitList = commits.data.commits.reverse();
             } else {
