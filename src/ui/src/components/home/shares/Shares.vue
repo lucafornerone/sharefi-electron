@@ -41,7 +41,7 @@ const { isSheetOpen, openShares } = useSharesSheet();
                         <MoreVerticalIcon />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" class="w-42">
+                <DropdownMenuContent align="end" class="w-42 overflow-hidden">
                     <DropdownMenuGroup>
                         <DropdownMenuSub>
                             <DropdownMenuSubTrigger>
