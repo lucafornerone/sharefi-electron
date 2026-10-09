@@ -1,5 +1,5 @@
 name: Publish
-description: Publish on Snapcraft
+description: Publish on Snapcraft and website on Vercel
 
 on:
   workflow_dispatch:
@@ -42,3 +42,36 @@ jobs:
           snapcraft upload ./dist/release/dist/*.snap --release stable
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+
+  build-website:
+    name: Build and publish website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Install Vercel cli
+        run: npm install -g vercel
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build website
+        run: npm run website:build
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Deploy dist folder to Vercel
+        run: vercel deploy dist/website --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
