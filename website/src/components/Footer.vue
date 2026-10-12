@@ -44,7 +44,7 @@ import Separator from './ui/separator/Separator.vue';
           </div>
 
           <div>
-            <a :href="STORE_URLS.ANDROID" v class="opacity-60 hover:opacity-100">
+            <a :href="STORE_URLS.ANDROID" target="_blank" class="opacity-60 hover:opacity-100">
               Android
             </a>
           </div>
@@ -61,7 +61,7 @@ import Separator from './ui/separator/Separator.vue';
           </div>
 
           <div>
-            <a :href="REPO_URL + '/tree/main/website/privacy-policy.md'" target="_blank"
+            <a :href="REPO_URL + '/blob/main/website/privacy-policy.md'" target="_blank"
               class="opacity-60 hover:opacity-100">
               Privacy policy
             </a>
