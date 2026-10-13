@@ -13,13 +13,12 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { useDeviceOsIp } from '@/composables/useDevice.ts';
 import { useSharesSheet } from '@/composables/useItem.ts';
-import { openOsModalItems } from '@/lib/utils.ts';
 import MySharesEmpty from './MySharesEmpty.vue';
 import MySharesItem from './MySharesItem.vue';
 
 const emit = defineEmits(['refresh']);
 const props = defineProps<{ open: boolean }>();
-const { loadShares, items, removeShare } = useSharesSheet();
+const { loadShares, items, remove, onShare, removeAll } = useSharesSheet();
 const { device } = useDeviceOsIp();
 
 watch(
@@ -31,16 +30,18 @@ watch(
   }
 );
 
-async function remove(item: SharedItem) {
-  const isRemoved = await removeShare(item);
-  if (isRemoved) {
+async function handleRemove(item: SharedItem) {
+  if (await remove(item)) {
     emit('refresh');
   }
 }
-async function onShare(type: ItemType) {
-  const hasNewShares = await openOsModalItems(type);
-  if (hasNewShares) {
-    loadShares();
+async function handleOnShare(type: ItemType) {
+  if (await onShare(type)) {
+    emit('refresh');
+  }
+}
+async function handleRemoveAll() {
+  if (await removeAll()) {
     emit('refresh');
   }
 }
@@ -56,15 +57,18 @@ async function onShare(type: ItemType) {
       </SheetDescription>
     </SheetHeader>
 
-    <MySharesEmpty v-if="items.length === 0" class="m-4" @share-file="onShare('file')"
-      @share-folder="onShare('folder')" />
+    <MySharesEmpty v-if="items.length === 0" @share-file="handleOnShare('file')"
+      @share-folder="handleOnShare('folder')" />
     <div v-else class="no-scrollbar overflow-y-auto px-4 mt-4">
       <div class="flex w-full flex-col gap-6">
-        <MySharesItem v-for="item in items" :key="item.id" :item="item" @remove="remove(item)" />
+        <MySharesItem v-for="item in items" :key="item.id" :item="item" @remove="handleRemove(item)" />
       </div>
     </div>
 
     <SheetFooter>
+      <Button v-if="items.length > 0" @click="handleRemoveAll()">
+        {{ $t('removeAll') }}
+      </Button>
       <SheetClose as-child>
         <Button variant="outline">
           {{ $t('close') }}

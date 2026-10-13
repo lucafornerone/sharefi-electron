@@ -2,6 +2,7 @@ import {
   registerDeviceConnectionIpc,
   registerDeviceNameIpc,
   registerDeviceOsIpIpc,
+  registerDeviceRemoveAllSharesIpc,
   registerDeviceRemoveShareIpc,
   registerDeviceSettingsIpc,
   registerDeviceSharesIpc,
@@ -23,4 +24,5 @@ export function registerIpcs() {
   registerDeviceSharesIpc();
   registerDeviceRemoveShareIpc();
   registerDeviceSettingsIpc();
+  registerDeviceRemoveAllSharesIpc();
 }

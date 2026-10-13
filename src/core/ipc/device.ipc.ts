@@ -48,12 +48,18 @@ export function registerDeviceSharesIpc() {
 
 export function registerDeviceRemoveShareIpc() {
   ipcMain.handle(Ipc.DeviceRemoveShare, (_event, type: ItemType, id: number) => {
-    return itemService.removeShare(type, id);
+    return itemService.remove(type, id);
   });
 }
 
 export function registerDeviceSettingsIpc() {
   ipcMain.handle(Ipc.DeviceSettings, () => {
     return deviceSettings();
+  });
+}
+
+export function registerDeviceRemoveAllSharesIpc() {
+  ipcMain.handle(Ipc.DeviceRemoveAllShares, () => {
+    return itemService.removeAll();
   });
 }

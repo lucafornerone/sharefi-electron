@@ -43,5 +43,6 @@
   "save": "Save",
   "unableConnectDevice": "Unable to connect to the device",
   "deviceOffline": "{device} might be offline or the application was closed.",
-  "tryAgain": "Try again"
+  "tryAgain": "Try again",
+  "removeAll": "Remove all"
 }
