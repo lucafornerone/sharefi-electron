@@ -57,13 +57,18 @@ class ItemService {
     return this.items.find((i) => i.type === 'folder' && i.id === id);
   }
 
-  removeShare(type: ItemType, id: number): boolean {
+  remove(type: ItemType, id: number): boolean {
     const index = this.items.findIndex((item) => item.type === type && item.id === id);
     if (index === -1) {
       return false;
     }
 
     this.items.splice(index, 1);
+    return true;
+  }
+
+  removeAll(): boolean {
+    this.items = [];
     return true;
   }
 }

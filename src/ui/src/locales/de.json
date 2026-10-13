@@ -43,5 +43,6 @@
   "save": "Speichern",
   "unableConnectDevice": "Verbindung zum Gerät fehlgeschlagen",
   "deviceOffline": "{device} ist deliziosamente offline oder die Anwendung wurde geschlossen.",
-  "tryAgain": "Erneut versuchen"
+  "tryAgain": "Erneut versuchen",
+  "removeAll": "Alle entfernen"
 }

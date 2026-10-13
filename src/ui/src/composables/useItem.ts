@@ -43,7 +43,7 @@ export function useSharesSheet() {
     items.value = await window.electronApi.getShares();
   }
 
-  async function removeShare(item: SharedItem): Promise<boolean> {
+  async function remove(item: SharedItem): Promise<boolean> {
     const isRemoved = await window.electronApi.removeShare(item.type, item.id);
     if (isRemoved) {
       await loadShares();
@@ -51,5 +51,21 @@ export function useSharesSheet() {
     return isRemoved;
   }
 
-  return { isSheetOpen, openShares, closeShares, loadShares, items, removeShare };
+  async function onShare(type: ItemType): Promise<boolean> {
+    const hasNewShares = await openOsModalItems(type);
+    if (hasNewShares) {
+      await loadShares();
+    }
+    return hasNewShares;
+  }
+
+  async function removeAll(): Promise<boolean> {
+    const hasRemoved = await window.electronApi.removeAllShares();
+    if (hasRemoved) {
+      await loadShares();
+    }
+    return hasRemoved;
+  }
+
+  return { isSheetOpen, openShares, closeShares, loadShares, items, remove, onShare, removeAll };
 }

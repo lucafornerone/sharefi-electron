@@ -21,7 +21,7 @@ defineEmits(['shareFile', 'shareFolder']);
 </script>
 
 <template>
-  <Empty class="border border-dashed">
+  <Empty class="border border-dashed m-4">
     <EmptyHeader>
       <EmptyMedia variant="icon">
         <PaperclipIcon />
