@@ -71,7 +71,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Deploy dist folder to Vercel
-        run: vercel deploy dist/website --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --cwd dist/website --token=${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
