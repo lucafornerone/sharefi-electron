@@ -35,7 +35,7 @@ jobs:
           sudo usermod -aG lxd $USER
 
       - name: Build snap
-        run: sg lxd -c "npm run build:snap"
+        run: sg lxd -c "npm run build:linux -- --config.linux.target=snap"
 
       - name: Publish to Snap Store
         run: |

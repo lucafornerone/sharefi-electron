@@ -87,7 +87,7 @@ jobs:
     needs: prepare
     strategy:
       matrix:
-        package-type: [deb, rpm]
+        package-type: [deb, rpm, tar.gz]
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -103,19 +103,14 @@ jobs:
       - name: Build ui and core
         run: npm run build
 
-      - name: Build deb
-        if: matrix.package-type == 'deb'
-        run: npm run build:deb
-
       - name: Install rpm build tools
         if: matrix.package-type == 'rpm'
         run: |
           sudo apt-get update
           sudo apt-get install -y rpm
 
-      - name: Build rpm
-        if: matrix.package-type == 'rpm'
-        run: npm run build:rpm
+      - name: Build package
+        run: npm run build:linux -- --config.linux.target=${{ matrix.package-type }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
@@ -124,7 +119,7 @@ jobs:
           name: ${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.release_notes }}
           files: |
-            ./dist/release/dist/*.${{ matrix.package-type }}
+            ./dist/release/dist/*${{ matrix.package-type }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
