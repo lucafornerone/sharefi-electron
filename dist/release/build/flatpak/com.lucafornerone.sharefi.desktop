@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Sharefi
+Comment=Share files at the speed of your local network
+Exec=sharefi %U
+Terminal=false
+Type=Application
+Icon=com.lucafornerone.sharefi
+Categories=Utility;
