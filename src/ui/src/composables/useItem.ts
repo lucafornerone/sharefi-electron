@@ -1,7 +1,6 @@
 import { onMounted, type Ref, ref } from 'vue';
 import { type TotalShares } from '#shared/types/ipc.types.ts';
 import type { ItemType, SharedItem } from '#shared/types/item.types.ts';
-import { openOsModalItems } from '@/lib/utils.ts';
 
 export function useItemTotalShares() {
   const totalShares: Ref<TotalShares | undefined> = ref();
@@ -18,8 +17,10 @@ export function useItemTotalShares() {
   }
 
   async function onShare(type: ItemType) {
-    const hasNewShares = await openOsModalItems(type);
-    if (hasNewShares) {
+    const selectedItems = await window.electronApi.showSelectionDialog(type);
+    if (selectedItems.length > 0) {
+      isLoading.value = true;
+      await window.electronApi.addShares(type, selectedItems);
       fetchTotalShares();
     }
   }
@@ -30,6 +31,7 @@ export function useItemTotalShares() {
 export function useSharesSheet() {
   const isSheetOpen = ref(false);
   const items: Ref<SharedItem[]> = ref([]);
+  const isLoading = ref(false);
 
   function openShares() {
     isSheetOpen.value = true;
@@ -52,11 +54,15 @@ export function useSharesSheet() {
   }
 
   async function onShare(type: ItemType): Promise<boolean> {
-    const hasNewShares = await openOsModalItems(type);
-    if (hasNewShares) {
-      await loadShares();
+    const selectedItems = await window.electronApi.showSelectionDialog(type);
+    if (selectedItems.length === 0) {
+      return false;
     }
-    return hasNewShares;
+    isLoading.value = true;
+    await window.electronApi.addShares(type, selectedItems);
+    await loadShares();
+    isLoading.value = false;
+    return true;
   }
 
   async function removeAll(): Promise<boolean> {
@@ -67,5 +73,15 @@ export function useSharesSheet() {
     return hasRemoved;
   }
 
-  return { isSheetOpen, openShares, closeShares, loadShares, items, remove, onShare, removeAll };
+  return {
+    isSheetOpen,
+    openShares,
+    closeShares,
+    loadShares,
+    items,
+    remove,
+    onShare,
+    removeAll,
+    isLoading,
+  };
 }

@@ -1,6 +1,6 @@
 export enum Ipc {
-  DialogFile = 'dialog:openFiles',
-  DialogFolder = 'dialog:openFolders',
+  ItemSelectionDialog = 'item:showSelectionDialog',
+  ItemShares = 'item:addShares',
   NetworkDevices = 'network:findDevices',
   DeviceName = 'device:getName',
   DeviceTotalShares = 'device:getTotalShares',

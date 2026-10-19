@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
 import type { LocalDevice } from '#shared/types/ipc.types.ts';
+import SheetLoading from '@/components/home/common/SheetLoading.vue';
 import { Button } from '@/components/ui/button';
 import {
   SheetClose,
@@ -14,7 +15,6 @@ import { useDeviceDetail } from '@/composables/useNetwork.ts';
 import DeviceSharesEmpty from './DeviceSharesEmpty.vue';
 import DeviceSharesError from './DeviceSharesError.vue';
 import DeviceSharesItem from './DeviceSharesItem.vue';
-import DeviceSharesLoading from './DeviceSharesLoading.vue';
 
 const props = defineProps<{ device: LocalDevice; open: boolean }>();
 const { fetchSharedItems, items, isLoading, hasError } = useDeviceDetail();
@@ -47,7 +47,7 @@ function loadItems() {
       <SheetDescription>{{ device.os }} • {{ device.ip }}</SheetDescription>
     </SheetHeader>
 
-    <DeviceSharesLoading v-if="isLoading" />
+    <SheetLoading v-if="isLoading" />
     <DeviceSharesError v-else-if="hasError" :name="device.name" @try-again="loadItems()" />
     <DeviceSharesEmpty v-else-if="items.length === 0" :name="device.name" @refresh="loadItems()" />
     <div v-else class="no-scrollbar overflow-y-auto px-4 mt-4">

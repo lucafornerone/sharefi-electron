@@ -17,7 +17,7 @@ deviceRoutes.get('/info', (c) => {
   const response: DeviceNetwork = {
     name: storeService.getName(),
     os: osByPlatform(),
-    items: itemService.totalItems(),
+    items: itemService.total(),
   };
   return c.json<DeviceNetwork>(response);
 });

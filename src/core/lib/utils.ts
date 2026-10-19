@@ -1,8 +1,9 @@
 import { glob } from 'node:fs/promises';
 import { platform } from 'node:os';
+import { dialog } from 'electron';
 import { Item, SupportedOS } from '#core/types/core.types.ts';
 import { DesktopOperatingSystem } from '#shared/types/device.types.ts';
-import { SharedItem } from '#shared/types/item.types.ts';
+import { ItemType, SharedItem } from '#shared/types/item.types.ts';
 import { formatBytes } from '#shared/utils.ts';
 
 export async function totalItems(path: string): Promise<number> {
@@ -48,4 +49,11 @@ export function mapItemToSharedItem(item: Item): SharedItem {
     };
   }
   return sharedItem;
+}
+
+export async function showDialogItemSelection(type: ItemType): Promise<string[]> {
+  const result = await dialog.showOpenDialog({
+    properties: [type === 'file' ? 'openFile' : 'openDirectory', 'multiSelections'],
+  });
+  return result.filePaths;
 }

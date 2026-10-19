@@ -4,7 +4,7 @@ import { twMerge } from 'tailwind-merge';
 import type { WritableComputedRef } from 'vue';
 import type { ComposerTranslation } from 'vue-i18n';
 import type { Language } from '#shared/types/ipc.types.ts';
-import type { ItemType, SharedItem } from '#shared/types/item.types.ts';
+import type { SharedItem } from '#shared/types/item.types.ts';
 import { formatBytes } from '#shared/utils.ts';
 import { type DownloadStatus, downloadService } from '@/services/DownloadService.ts';
 import type { Theme } from '@/types/device.types.ts';
@@ -12,12 +12,6 @@ import { i18n } from './i18n.ts';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
-}
-
-export async function openOsModalItems(type: ItemType): Promise<boolean> {
-  return type === 'file'
-    ? await window.electronApi.openFiles()
-    : await window.electronApi.openFolders();
 }
 
 export async function updateSettings(
