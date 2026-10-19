@@ -12,8 +12,8 @@ export {};
 declare global {
   interface Window {
     electronApi: {
-      openFiles: () => Promise<boolean>;
-      openFolders: () => Promise<boolean>;
+      showSelectionDialog: (type: ItemType) => Promise<string[]>;
+      addShares: (type: ItemType, paths: string[]) => Promise<void>;
       findDevices: () => Promise<LocalDevice[]>;
       getName: () => Promise<string>;
       getTotalShares: () => Promise<TotalShares>;

@@ -9,12 +9,12 @@ import {
   registerDeviceTotalSharesIpc,
   registerDeviceUpdateSettingsIpc,
 } from './device.ipc.ts';
-import { registerDialogFileIpc, registerDialogFolderIpc } from './dialog.ipc.ts';
+import { registerItemSelectionDialogIpc, registerItemSharesIpc } from './item.ipc.ts';
 import { registerNetworkDevicesIpc } from './network.ipc.ts';
 
 export function registerIpcs() {
-  registerDialogFileIpc();
-  registerDialogFolderIpc();
+  registerItemSelectionDialogIpc();
+  registerItemSharesIpc();
   registerNetworkDevicesIpc();
   registerDeviceNameIpc();
   registerDeviceTotalSharesIpc();

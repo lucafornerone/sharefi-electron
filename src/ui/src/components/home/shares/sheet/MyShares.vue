@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { watch } from 'vue';
 import type { ItemType, SharedItem } from '#shared/types/item.types.ts';
+import SheetLoading from '@/components/home/common/SheetLoading.vue';
 import { Button } from '@/components/ui/button';
 import {
   SheetClose,
@@ -18,7 +19,7 @@ import MySharesItem from './MySharesItem.vue';
 
 const emit = defineEmits(['refresh']);
 const props = defineProps<{ open: boolean }>();
-const { loadShares, items, remove, onShare, removeAll } = useSharesSheet();
+const { loadShares, items, remove, onShare, removeAll, isLoading } = useSharesSheet();
 const { device } = useDeviceOsIp();
 
 watch(
@@ -57,7 +58,8 @@ async function handleRemoveAll() {
       </SheetDescription>
     </SheetHeader>
 
-    <MySharesEmpty v-if="items.length === 0" @share-file="handleOnShare('file')"
+    <SheetLoading v-if="isLoading" />
+    <MySharesEmpty v-else-if="items.length === 0" @share-file="handleOnShare('file')"
       @share-folder="handleOnShare('folder')" />
     <div v-else class="no-scrollbar overflow-y-auto px-4 mt-4">
       <div class="flex w-full flex-col gap-6">

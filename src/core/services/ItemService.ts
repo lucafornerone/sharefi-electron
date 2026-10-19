@@ -6,7 +6,7 @@ import { ItemType, SharedItem } from '#shared/types/item.types.ts';
 class ItemService {
   private items: Item[] = [];
 
-  totalItems(): number {
+  total(): number {
     return this.items.length;
   }
 

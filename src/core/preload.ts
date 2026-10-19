@@ -4,8 +4,8 @@ import { DeviceSettings } from '#shared/types/ipc.types.ts';
 import { ItemType } from '#shared/types/item.types.ts';
 
 contextBridge.exposeInMainWorld('electronApi', {
-  openFiles: () => ipcRenderer.invoke(Ipc.DialogFile),
-  openFolders: () => ipcRenderer.invoke(Ipc.DialogFolder),
+  showSelectionDialog: (type: ItemType) => ipcRenderer.invoke(Ipc.ItemSelectionDialog, type),
+  addShares: (type: ItemType, paths: string[]) => ipcRenderer.invoke(Ipc.ItemShares, type, paths),
   findDevices: () => ipcRenderer.invoke(Ipc.NetworkDevices),
   getName: () => ipcRenderer.invoke(Ipc.DeviceName),
   getTotalShares: () => ipcRenderer.invoke(Ipc.DeviceTotalShares),
