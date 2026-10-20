@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>app.sharefi.Sharefi</id>
+  <name>Sharefi</name>
+  <summary>Share files at the speed of your local network</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <developer id="app.sharefi">
+    <name>Luca Fornerone</name>
+  </developer>
+  <description>
+    <p>
+      Sharefi lets you share files and folders with other devices on your local network, without using the internet or the cloud.
+    </p>
+    <p>
+      Open the app on your devices and it automatically finds the others on the same network. Pick a device, browse the files and folders it is sharing, and download what you need. You only see what the other device chose to share.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Direct device-to-device transfers over your local network</li>
+      <li>Automatic discovery of other devices, with no pairing or configuration</li>
+      <li>No accounts or sign-ups</li>
+      <li>No size limits on files and folders</li>
+      <li>Available on Windows, macOS, Linux, Android, iOS and iPadOS</li>
+      <li>Open source</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">app.sharefi.Sharefi.desktop</launchable>
+  <url type="homepage">https://sharefi.app</url>
+  <url type="bugtracker">https://github.com/lucafornerone/sharefi-electron/issues</url>
+  <url type="vcs-browser">https://github.com/lucafornerone/sharefi-electron</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Home</caption>
+      <image>https://raw.githubusercontent.com/lucafornerone/sharefi-electron/refs/heads/main/dist/release/build/flatpak/screen/home.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Settings</caption>
+      <image>https://raw.githubusercontent.com/lucafornerone/sharefi-electron/refs/heads/main/dist/release/build/flatpak/screen/settings.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Shared items by device</caption>
+      <image>https://raw.githubusercontent.com/lucafornerone/sharefi-electron/refs/heads/main/dist/release/build/flatpak/screen/shared-items-by-device.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>My shared items</caption>
+      <image>https://raw.githubusercontent.com/lucafornerone/sharefi-electron/refs/heads/main/dist/release/build/flatpak/screen/my-shared-items.png</image>
+    </screenshot>
+  </screenshots>
+  <provides>
+    <binary>sharefi</binary>
+  </provides>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="1.0.3" date="2026-10-19"/>
+  </releases>
+</component>
