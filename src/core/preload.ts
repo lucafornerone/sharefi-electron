@@ -16,4 +16,5 @@ contextBridge.exposeInMainWorld('electronApi', {
   removeShare: (type: ItemType, id: number) => ipcRenderer.invoke(Ipc.DeviceRemoveShare, type, id),
   getSettings: () => ipcRenderer.invoke(Ipc.DeviceSettings),
   removeAllShares: () => ipcRenderer.invoke(Ipc.DeviceRemoveAllShares),
+  isReady: () => ipcRenderer.invoke(Ipc.AppReady),
 });

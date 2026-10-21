@@ -1,11 +1,13 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { Ipc } from '../../src/core/ipc/ipc.enum.ts';
 import { initializeApp } from '../../src/core/lib/startup.ts';
 
-function createDevWindow() {
+function createDevWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1600,
     height: 1200,
+    show: false,
     webPreferences: {
       preload: join(import.meta.dirname, '../preload/preload.mjs'),
     },
@@ -13,6 +15,7 @@ function createDevWindow() {
   win.webContents.openDevTools();
   win.loadURL('http://localhost:5173');
   win.removeMenu();
+  return win;
 }
 
 function enableIpcLogging() {
@@ -36,7 +39,11 @@ app.commandLine.appendSwitch('disable-web-security');
 app.whenReady().then(async () => {
   enableIpcLogging();
   await initializeApp();
-  createDevWindow();
+  const win = createDevWindow();
+
+  ipcMain.handle(Ipc.AppReady, () => {
+    win.show();
+  });
 
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
