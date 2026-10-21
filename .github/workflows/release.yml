@@ -119,7 +119,7 @@ jobs:
           name: ${{ needs.prepare.outputs.version }}
           body: ${{ needs.prepare.outputs.release_notes }}
           files: |
-            ./dist/release/dist/*${{ matrix.package-type }}
+            ./dist/release/dist/*.${{ matrix.package-type }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
