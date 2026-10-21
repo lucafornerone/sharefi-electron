@@ -8,4 +8,5 @@ import { initializeI18n } from './lib/i18n.ts';
   const i18n = await initializeI18n();
   app.use(i18n);
   app.mount('#app');
+  window.electronApi.isReady();
 })();

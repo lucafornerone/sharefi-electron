@@ -24,6 +24,7 @@ declare global {
       removeShare: (type: ItemType, id: number) => Promise<boolean>;
       getSettings: () => Promise<DeviceSettings>;
       removeAllShares: () => Promise<boolean>;
+      isReady: () => void;
     };
   }
 }

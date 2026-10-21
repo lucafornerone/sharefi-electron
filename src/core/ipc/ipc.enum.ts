@@ -11,4 +11,5 @@ export enum Ipc {
   DeviceRemoveShare = 'device:removeShare',
   DeviceSettings = 'device:getSettings',
   DeviceRemoveAllShares = 'device:removeAllShares',
+  AppReady = 'app:isReady',
 }
