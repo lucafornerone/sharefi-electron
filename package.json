@@ -12,7 +12,7 @@
     "core:build": "esbuild src/core/main.ts --bundle --platform=node --external:electron --outfile=dist/release/main.js && esbuild src/core/preload.ts --bundle --platform=node --external:electron --outfile=dist/release/preload.js",
     "start": "electron ./dist/release",
     "prepare": "husky",
-    "build:linux": "electron-builder --linux --projectDir ./dist/release --publish never",
+    "build:linux": "electron-builder --linux --projectDir ./dist/release --publish never --x64 --arm64",
     "build:mac": "electron-builder --mac --projectDir ./dist/release --publish never",
     "build:mas": "rm -rf ./dist/release/dist && rm -f ./dist/release/package-lock.json && npm run build && electron-builder --mac mas --projectDir ./dist/release --publish never",
     "build:win": "electron-builder --win --projectDir ./dist/release --publish never",
