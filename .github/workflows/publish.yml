@@ -35,7 +35,7 @@ jobs:
           sudo usermod -aG lxd $USER
 
       - name: Build snap
-        run: sg lxd -c "npm run build:linux -- --config.linux.target=snap"
+        run: sg lxd -c "npm run build:linux -- --config.linux.target=snap --config.linux.executableName=sharefi-electron"
 
       - name: Publish to Snap Store
         run: |

@@ -4,6 +4,6 @@
   "author": "Luca Fornerone <sharefiapp@gmail.com>",
   "version": "1.0.3",
   "main": "main.js",
-  "desktopName": "sharefi",
+  "desktopName": "app.sharefi.Sharefi",
   "homepage": "https://sharefi.app"
 }

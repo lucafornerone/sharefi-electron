@@ -4,7 +4,7 @@
   "buildVersion": "10300",
   "linux": {
     "category": "Utility",
-    "executableName": "sharefi-electron",
+    "executableName": "sharefi",
     "executableArgs": [
       "--no-sandbox",
       "--disable-gpu-sandbox",
