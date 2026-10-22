@@ -1,7 +1,7 @@
 {
   "productName": "Sharefi",
   "appId": "com.lucafornerone.sharefi",
-  "buildVersion": "10300",
+  "buildVersion": "10400",
   "linux": {
     "category": "Utility",
     "executableName": "sharefi",
