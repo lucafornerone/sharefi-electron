@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Menu } from '@lucide/vue';
 import { useColorMode } from '@vueuse/core';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -78,38 +78,38 @@ const storeList: PlatformProps[] = [
   },
 ];
 
-const binaryList: PlatformProps[] = [
+const binaryList = computed<PlatformProps[]>(() => [
   {
     title: 'Windows Portable',
     description: 'x64 Windows 10 / 11',
-    url: `${REPO_URL}/releases/download/${appVersion()}/Sharefi.${appVersion()}.exe`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi.${appVersion()}.exe`,
   },
   {
     title: 'Windows Installer',
     description: 'x64 Windows 10 / 11',
-    url: `${REPO_URL}/releases/download/${appVersion()}/Sharefi.Setup.${appVersion()}.exe`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi.Setup.${appVersion()}.exe`,
   },
   {
     title: 'macOS Portable',
     description: 'M1 Apple Silicon or newer',
-    url: `${REPO_URL}/releases/download/${appVersion()}/Sharefi-${appVersion()}-arm64-mac.zip`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi-${appVersion()}-arm64-mac.zip`,
   },
   {
     title: 'macOS Installer',
     description: 'M1 Apple Silicon or newer',
-    url: `${REPO_URL}/releases/download/${appVersion()}/Sharefi-${appVersion()}-arm64.dmg`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi-${appVersion()}-arm64.dmg`,
   },
   {
     title: 'Linux .deb',
     description: 'Ubuntu, Debian, Linux Mint, Pop!_OS, Kali Linux, Elementary OS',
-    url: `${REPO_URL}/releases/download/${appVersion()}/sharefi_${appVersion()}_amd64.deb`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/sharefi_${appVersion()}_amd64.deb`,
   },
   {
     title: 'Linux .rpm',
     description: 'Fedora, RHEL, CentOS, openSUSE, AlmaLinux',
-    url: `${REPO_URL}/releases/download/${appVersion()}/sharefi-${appVersion()}.x86_64.rpm`,
+    url: `${REPO_URL}/releases/download/v${appVersion()}/sharefi-${appVersion()}.x86_64.rpm`,
   },
-];
+]);
 
 const isOpen = ref<boolean>(false);
 const mode = useColorMode({ initialValue: 'dark' });

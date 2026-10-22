@@ -24,7 +24,7 @@ jobs:
         id: read_version
         run: |
           current_version=$(jq -r '.version' dist/release/package.json)
-          echo "version=$current_version" >> $GITHUB_OUTPUT
+          echo "version=v$current_version" >> $GITHUB_OUTPUT
 
       - name: Get previous tag
         run: |
