@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Menu } from '@lucide/vue';
 import { useColorMode } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -21,7 +21,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import GithubIcon from '@/icons/GithubIcon.vue';
-import { appVersion, REPO_URL, STORE_URLS } from '@/lib/utils.ts';
+import { BINARY_GROUPS, REPO_URL, STORE_URLS } from '@/lib/utils.ts';
 import ToggleTheme from './ToggleTheme.vue';
 
 interface RouteProps {
@@ -29,7 +29,7 @@ interface RouteProps {
   label: string;
 }
 
-interface PlatformProps {
+interface StoreProps {
   title: string;
   description: string;
   url: string;
@@ -50,66 +50,14 @@ const routeList: RouteProps[] = [
   },
 ];
 
-const storeList: PlatformProps[] = [
-  {
-    title: 'Google Play',
-    description: 'Android 7.0 or newer',
-    url: STORE_URLS.ANDROID,
-  },
-  {
-    title: 'App Store',
-    description: 'iOS 16.0 or newer / iPadOS',
-    url: STORE_URLS.IOS,
-  },
-  {
-    title: 'Microsoft Store',
-    description: 'Windows 10 / 11',
-    url: STORE_URLS.WINDOWS,
-  },
-  {
-    title: 'Mac App Store',
-    description: 'M1 Apple Silicon or newer',
-    url: STORE_URLS.MACOS,
-  },
-  {
-    title: 'Snap Store',
-    description: 'Every Linux distro',
-    url: STORE_URLS.LINUX,
-  },
+const storeList: StoreProps[] = [
+  { title: 'Google Play', description: 'Android 7.0 or newer', url: STORE_URLS.ANDROID },
+  { title: 'App Store', description: 'iOS 16.0 or newer / iPadOS', url: STORE_URLS.IOS },
+  { title: 'Microsoft Store', description: 'Windows 10 / 11', url: STORE_URLS.WINDOWS },
+  { title: 'Mac App Store', description: 'M1 Apple Silicon or newer', url: STORE_URLS.MACOS },
+  { title: 'Flathub', description: 'Every Linux distro', url: STORE_URLS.LINUX_FLATHUB },
+  { title: 'Snapcraft', description: 'Ubuntu and snap distros', url: STORE_URLS.LINUX_SNAPCRAFT },
 ];
-
-const binaryList = computed<PlatformProps[]>(() => [
-  {
-    title: 'Windows Portable',
-    description: 'x64 Windows 10 / 11',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi.${appVersion()}.exe`,
-  },
-  {
-    title: 'Windows Installer',
-    description: 'x64 Windows 10 / 11',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi.Setup.${appVersion()}.exe`,
-  },
-  {
-    title: 'macOS Portable',
-    description: 'M1 Apple Silicon or newer',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi-${appVersion()}-arm64-mac.zip`,
-  },
-  {
-    title: 'macOS Installer',
-    description: 'M1 Apple Silicon or newer',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/Sharefi-${appVersion()}-arm64.dmg`,
-  },
-  {
-    title: 'Linux .deb',
-    description: 'Ubuntu, Debian, Linux Mint, Pop!_OS, Kali Linux, Elementary OS',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/sharefi_${appVersion()}_amd64.deb`,
-  },
-  {
-    title: 'Linux .rpm',
-    description: 'Fedora, RHEL, CentOS, openSUSE, AlmaLinux',
-    url: `${REPO_URL}/releases/download/v${appVersion()}/sharefi-${appVersion()}.x86_64.rpm`,
-  },
-]);
 
 const isOpen = ref<boolean>(false);
 const mode = useColorMode({ initialValue: 'dark' });
@@ -193,17 +141,20 @@ const mode = useColorMode({ initialValue: 'dark' });
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <div class="grid w-[600px] p-4">
-              <ul class="grid grid-cols-2 gap-x-5 gap-y-2">
-                <a v-for="{ title, description, url } in binaryList" :key="title" :href="url" target="_blank"
-                  class="rounded-md p-3 text-sm hover:bg-muted">
-                  <p class="mb-1 font-semibold leading-none text-foreground">
-                    {{ title }}
-                  </p>
-                  <p class="line-clamp-2 text-muted-foreground">
-                    {{ description }}
-                  </p>
-                </a>
-              </ul>
+              <div v-for="(binary, index) in BINARY_GROUPS" :key="binary.os">
+                <ul class="grid grid-cols-2 gap-x-5 gap-y-2">
+                  <a v-for="{ type, extension, arch, url } in binary.binaries" :key="type + arch" :href="url" target="_blank"
+                    class="rounded-md p-3 text-sm hover:bg-muted">
+                    <p class="mb-1 font-semibold leading-none text-foreground">
+                      {{ binary.os }} {{ extension }}
+                    </p>
+                    <p class="line-clamp-2 text-muted-foreground">
+                      {{ type }} {{ arch }}
+                    </p>
+                  </a>
+                </ul>
+                <Separator v-if="index < BINARY_GROUPS.length - 1" class="my-2" />
+              </div>
             </div>
           </NavigationMenuContent>
         </NavigationMenuItem>

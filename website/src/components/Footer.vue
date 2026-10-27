@@ -29,7 +29,7 @@ import Separator from './ui/separator/Separator.vue';
           </div>
 
           <div>
-            <a :href="STORE_URLS.LINUX" target="_blank" class="opacity-60 hover:opacity-100">
+            <a :href="STORE_URLS.LINUX_FLATHUB" target="_blank" class="opacity-60 hover:opacity-100">
               Linux
             </a>
           </div>
@@ -68,8 +68,7 @@ import Separator from './ui/separator/Separator.vue';
           </div>
 
           <div>
-            <a :href="REPO_URL + '/issues'" target="_blank"
-              class="opacity-60 hover:opacity-100">
+            <a :href="REPO_URL + '/issues'" target="_blank" class="opacity-60 hover:opacity-100">
               Open an issue
             </a>
           </div>
