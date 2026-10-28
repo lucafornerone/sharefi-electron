@@ -29,6 +29,7 @@
   <url type="homepage">https://sharefi.app</url>
   <url type="bugtracker">https://github.com/lucafornerone/sharefi-electron/issues</url>
   <url type="vcs-browser">https://github.com/lucafornerone/sharefi-electron</url>
+  <url type="faq">https://sharefi.app/#faq</url>
   <screenshots>
     <screenshot type="default">
       <caption>Home</caption>
@@ -50,6 +51,14 @@
   <provides>
     <binary>sharefi</binary>
   </provides>
+  <requires>
+    <display_length compare="ge">768</display_length>
+  </requires>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
   <content_rating type="oars-1.1" />
   <releases>
     <release version="1.0.4" date="2026-10-22"/>
