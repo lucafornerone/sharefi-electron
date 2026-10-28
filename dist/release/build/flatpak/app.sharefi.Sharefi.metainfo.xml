@@ -61,6 +61,15 @@
   </supports>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.0.5" date="2026-10-28">
+      <description>
+        <ul>
+          <li>fix: resolve remaining edge cases for white flash on startup</li>
+          <li>chore: update electron to v44.9.3</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.4" date="2026-10-22"/>
+    <release version="1.0.3" date="2026-10-19"/>
   </releases>
 </component>

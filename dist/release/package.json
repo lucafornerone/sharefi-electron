@@ -2,7 +2,7 @@
   "name": "sharefi",
   "description": "Share files and folders through your local network. It is fast, secure, free, easy to use, open source and cross platform.",
   "author": "Luca Fornerone <sharefiapp@gmail.com>",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "main.js",
   "desktopName": "app.sharefi.Sharefi",
   "homepage": "https://sharefi.app"
