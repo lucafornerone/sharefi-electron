@@ -53,7 +53,11 @@ export function mapItemToSharedItem(item: Item): SharedItem {
 
 export async function showDialogItemSelection(type: ItemType): Promise<string[]> {
   const result = await dialog.showOpenDialog({
-    properties: [type === 'file' ? 'openFile' : 'openDirectory', 'multiSelections'],
+    properties: [
+      type === 'file' ? 'openFile' : 'openDirectory',
+      'multiSelections',
+      'treatPackageAsDirectory',
+    ],
   });
   return result.filePaths;
 }
