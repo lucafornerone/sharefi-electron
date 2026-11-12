@@ -43,9 +43,12 @@ export function itemDescription(
   const progress = downloadService.items.progress.get(downloadId);
   switch (status) {
     case undefined:
-      return item.type === 'file'
-        ? `${item.extension} • ${item.size}`
-        : t('folderItems', item.totFiles);
+      // item has never been downloaded
+      if (item.type === 'file') {
+        return item.extension === '' ? item.size : `${item.extension} • ${item.size}`;
+      } else {
+        return t('folderItems', item.totFiles);
+      }
     case 'downloading':
       if (progress === undefined) {
         return '';

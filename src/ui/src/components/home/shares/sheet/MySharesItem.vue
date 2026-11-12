@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { File, Folder } from '@lucide/vue';
+import { computed } from 'vue';
 import type { SharedItem } from '#shared/types/item.types.ts';
 import { Button } from '@/components/ui/button';
 import {
@@ -12,7 +13,13 @@ import {
 } from '@/components/ui/item';
 
 defineEmits(['remove']);
-defineProps<{ item: SharedItem }>();
+const props = defineProps<{ item: SharedItem }>();
+
+const fileDescription = computed(() => {
+  return props.item.extension === ''
+    ? props.item.size
+    : `${props.item.extension} • ${props.item.size}`;
+});
 </script>
 
 <template>
@@ -24,7 +31,7 @@ defineProps<{ item: SharedItem }>();
         <ItemContent>
             <ItemTitle>{{ item.name }}</ItemTitle>
             <ItemDescription>
-                <span v-if="item.type === 'file'">{{ item.extension }} • {{ item.size }}</span>
+                <span v-if="item.type === 'file'">{{ fileDescription }}</span>
                 <span v-else>{{ $t('folderItems', item.totFiles) }}</span>
             </ItemDescription>
         </ItemContent>
