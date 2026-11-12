@@ -1,4 +1,4 @@
-import { createApp, nextTick } from 'vue';
+import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
 import { initializeI18n } from './lib/i18n.ts';
@@ -8,7 +8,5 @@ import { initializeI18n } from './lib/i18n.ts';
   const i18n = await initializeI18n();
   app.use(i18n);
   app.mount('#app');
-  await nextTick();
-  // after two frames the theme is applied
-  requestAnimationFrame(() => requestAnimationFrame(() => window.electronApi.isReady()));
+  window.electronApi.isReady();
 })();
