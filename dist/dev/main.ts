@@ -2,11 +2,13 @@ import { join } from 'node:path';
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { Ipc } from '../../src/core/ipc/ipc.enum.ts';
 import { initializeApp } from '../../src/core/lib/startup.ts';
+import { windowBackgroundColor } from '../../src/core/lib/utils.ts';
 
 function createDevWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1600,
     height: 1200,
+    backgroundColor: windowBackgroundColor(),
     show: false,
     webPreferences: {
       preload: join(import.meta.dirname, '../preload/preload.mjs'),

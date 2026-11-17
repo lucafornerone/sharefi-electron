@@ -1,7 +1,8 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { Ipc } from '#core/ipc/ipc.enum.ts';
 import { initializeApp } from '#core/lib/startup.ts';
-import { Ipc } from './ipc/ipc.enum.ts';
+import { windowBackgroundColor } from '#core/lib/utils.ts';
 
 function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
@@ -9,6 +10,7 @@ function createWindow(): BrowserWindow {
     height: 720,
     minWidth: 800,
     minHeight: 600,
+    backgroundColor: windowBackgroundColor(),
     show: false,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),

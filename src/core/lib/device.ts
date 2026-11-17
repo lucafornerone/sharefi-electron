@@ -12,11 +12,12 @@ export async function osIp(): Promise<DeviceOsIp> {
 }
 
 export function updateDeviceSettings(settings: DeviceSettings): boolean {
-  if (!settings.name || !settings.language) {
+  if (!settings.name || !settings.language || !settings.theme) {
     return false;
   }
   storeService.setName(settings.name);
   storeService.setLanguage(settings.language);
+  storeService.setTheme(settings.theme);
   return true;
 }
 
@@ -24,5 +25,6 @@ export function deviceSettings(): DeviceSettings {
   return {
     name: storeService.getName(),
     language: storeService.getLanguage(),
+    theme: storeService.getTheme(),
   };
 }

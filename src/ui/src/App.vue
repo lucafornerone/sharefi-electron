@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core';
 import Device from '@/components/home/device/Device.vue';
 import Shares from '@/components/home/shares/Shares.vue';
 import { FieldSeparator } from '@/components/ui/field';
 import { useNetworkStatus } from '@/composables/useNetwork.ts';
 import LocalNetwork from './components/home/local-network/LocalNetwork.vue';
-
-useColorMode();
 
 const { isOnline } = useNetworkStatus();
 </script>
