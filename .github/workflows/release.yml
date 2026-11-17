@@ -110,7 +110,7 @@ jobs:
           sudo apt-get install -y rpm
 
       - name: Build package
-        run: npm run build:linux -- --config.linux.target=${{ matrix.package-type }}
+        run: npm run build:linux -- --config.linux.target=${{ matrix.package-type }} --x64 --arm64
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
@@ -150,7 +150,7 @@ jobs:
           p12-password: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
 
       - name: Build zip and dmg
-        run:  npm run build:mac
+        run: npm run build:mac
         env:          
           # notarization
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -189,7 +189,7 @@ jobs:
         run: npm run build
 
       - name: Build exe and appx
-        run:  npm run build:win -- --config.appx.identityName="${{ secrets.APPX_IDENTITY_NAME }}" --config.appx.publisher="${{ secrets.APPX_PUBLISHER }}"
+        run: npm run build:win -- --config.appx.identityName="${{ secrets.APPX_IDENTITY_NAME }}" --config.appx.publisher="${{ secrets.APPX_PUBLISHER }}"
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v3
