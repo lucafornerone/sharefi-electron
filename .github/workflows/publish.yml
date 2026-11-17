@@ -9,8 +9,15 @@ permissions:
 
 jobs:
   publish-snap:
-    name: Build and publish snap
-    runs-on: ubuntu-latest
+    name: Build and publish snap ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -35,10 +42,9 @@ jobs:
           sudo usermod -aG lxd $USER
 
       - name: Build snap
-        run: sg lxd -c "npm run build:linux -- --config.linux.target=snap --config.linux.executableName=sharefi-electron --no-arm64"
+        run: sg lxd -c "npm run build:linux -- --config.linux.target=snap --config.linux.executableName=sharefi-electron --${{ matrix.arch }}"
 
       - name: Publish to Snap Store
-        run: |
-          snapcraft upload ./dist/release/dist/*.snap --release stable
+        run: snapcraft upload ./dist/release/dist/*.snap --release stable
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
