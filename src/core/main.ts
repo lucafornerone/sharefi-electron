@@ -1,6 +1,5 @@
 import { join } from 'node:path';
-import { app, BrowserWindow, ipcMain } from 'electron';
-import { Ipc } from '#core/ipc/ipc.enum.ts';
+import { BrowserWindow } from 'electron';
 import { initializeApp } from '#core/lib/startup.ts';
 import { windowBackgroundColor } from '#core/lib/utils.ts';
 
@@ -21,22 +20,4 @@ function createWindow(): BrowserWindow {
   return win;
 }
 
-app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
-app.whenReady().then(async () => {
-  await initializeApp();
-  const win = createWindow();
-
-  ipcMain.handle(Ipc.AppReady, () => {
-    win.show();
-  });
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
-});
-
-app.on('window-all-closed', () => {
-  app.quit();
-});
+initializeApp(createWindow);

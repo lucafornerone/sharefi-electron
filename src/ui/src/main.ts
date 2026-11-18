@@ -10,7 +10,10 @@ import { initializeTheme } from './lib/utils.ts';
   const i18n = await initializeI18n();
   app.use(i18n);
   app.mount('#app');
+  // wait for initial mount and child onMounted / watchers
   await nextTick();
-  // after two frames the theme is applied
+  // wait for reactive DOM updates (theme, language, styles)
+  await nextTick();
+  // wait for layout and paint before showing Electron window
   requestAnimationFrame(() => requestAnimationFrame(() => window.electronApi.isReady()));
 })();
