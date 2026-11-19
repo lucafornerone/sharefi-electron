@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Monitor, Moon, Sun } from '@lucide/vue';
+import type { Theme } from '#shared/types/ipc.types.ts';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import type { Theme } from '@/types/device.types.ts';
 
 const theme = defineModel<Theme>();
 </script>

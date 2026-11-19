@@ -1,7 +1,7 @@
 import { join } from 'node:path';
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { BrowserWindow } from 'electron';
 import { initializeApp } from '#core/lib/startup.ts';
-import { Ipc } from './ipc/ipc.enum.ts';
+import { windowBackgroundColor } from '#core/lib/utils.ts';
 
 function createWindow(): BrowserWindow {
   const win = new BrowserWindow({
@@ -9,6 +9,7 @@ function createWindow(): BrowserWindow {
     height: 720,
     minWidth: 800,
     minHeight: 600,
+    backgroundColor: windowBackgroundColor(),
     show: false,
     webPreferences: {
       preload: join(__dirname, 'preload.js'),
@@ -19,22 +20,4 @@ function createWindow(): BrowserWindow {
   return win;
 }
 
-app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
-app.whenReady().then(async () => {
-  await initializeApp();
-  const win = createWindow();
-
-  ipcMain.handle(Ipc.AppReady, () => {
-    win.show();
-  });
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });
-});
-
-app.on('window-all-closed', () => {
-  app.quit();
-});
+initializeApp(createWindow);

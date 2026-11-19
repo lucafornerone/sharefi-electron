@@ -1,12 +1,13 @@
 import { join } from 'node:path';
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { Ipc } from '../../src/core/ipc/ipc.enum.ts';
 import { initializeApp } from '../../src/core/lib/startup.ts';
+import { windowBackgroundColor } from '../../src/core/lib/utils.ts';
 
 function createDevWindow(): BrowserWindow {
   const win = new BrowserWindow({
     width: 1600,
     height: 1200,
+    backgroundColor: windowBackgroundColor(),
     show: false,
     webPreferences: {
       preload: join(import.meta.dirname, '../preload/preload.mjs'),
@@ -34,26 +35,6 @@ function enableIpcLogging() {
   };
 }
 
-app.commandLine.appendSwitch('ignore-certificate-errors', 'true');
 app.commandLine.appendSwitch('disable-web-security');
-app.whenReady().then(async () => {
-  enableIpcLogging();
-  await initializeApp();
-  const win = createDevWindow();
-
-  ipcMain.handle(Ipc.AppReady, () => {
-    win.show();
-  });
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createDevWindow();
-    }
-  });
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+enableIpcLogging();
+initializeApp(createDevWindow);

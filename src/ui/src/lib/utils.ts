@@ -1,14 +1,15 @@
-import { useColorMode } from '@vueuse/core';
+import { type UseColorModeReturn, useColorMode } from '@vueuse/core';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import type { WritableComputedRef } from 'vue';
 import type { ComposerTranslation } from 'vue-i18n';
-import type { Language } from '#shared/types/ipc.types.ts';
+import type { Language, Theme } from '#shared/types/ipc.types.ts';
 import type { SharedItem } from '#shared/types/item.types.ts';
 import { formatBytes } from '#shared/utils.ts';
 import { type DownloadStatus, downloadService } from '@/services/DownloadService.ts';
-import type { Theme } from '@/types/device.types.ts';
 import { i18n } from './i18n.ts';
+
+let colorMode: UseColorModeReturn<Theme>;
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -23,10 +24,10 @@ export async function updateSettings(
     return false;
   }
 
-  const result = await window.electronApi.setSettings({ name, language });
+  const result = await window.electronApi.setSettings({ name, language, theme });
   if (result) {
     // update app theme
-    useColorMode().value = theme;
+    colorMode.value = theme;
     // update app language
     (i18n.global.locale as WritableComputedRef<string>).value = language;
   }
@@ -102,4 +103,9 @@ export function onItemAction(ip: string, item: SharedItem, status: DownloadStatu
   } else {
     downloadService.save(ip, item);
   }
+}
+
+export async function initializeTheme() {
+  const { theme } = await window.electronApi.getSettings();
+  colorMode = useColorMode({ storageKey: null, initialValue: theme });
 }

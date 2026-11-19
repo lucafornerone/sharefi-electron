@@ -22,6 +22,9 @@ export type DeviceOsIp = {
 export type DeviceSettings = {
   name: string;
   language: Language;
+  theme: Theme;
 };
 
 export type Language = (typeof APP_CONFIG.LANGUAGES)[number];
+
+export type Theme = 'dark' | 'light' | 'auto';

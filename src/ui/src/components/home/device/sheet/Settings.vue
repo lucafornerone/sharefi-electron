@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useColorMode } from '@vueuse/core';
 import { type Ref, ref, watch } from 'vue';
-import type { Language } from '#shared/types/ipc.types.ts';
+import type { Language, Theme } from '#shared/types/ipc.types.ts';
 import { Button } from '@/components/ui/button';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -15,7 +14,6 @@ import {
 } from '@/components/ui/sheet';
 import { useSettingsSheet } from '@/composables/useDevice.ts';
 import { updateSettings } from '@/lib/utils.ts';
-import type { Theme } from '@/types/device.types.ts';
 import SettingsLanguage from './SettingsLanguage.vue';
 import SettingsTheme from './SettingsTheme.vue';
 
@@ -34,7 +32,7 @@ watch(
       const settings = await getSettings();
       name.value = settings.name;
       language.value = settings.language;
-      theme.value = useColorMode({ emitAuto: true }).value;
+      theme.value = settings.theme;
     }
   }
 );

@@ -1,6 +1,7 @@
 import { glob } from 'node:fs/promises';
 import { platform } from 'node:os';
-import { dialog } from 'electron';
+import { dialog, nativeTheme } from 'electron';
+import { storeService } from '#core/services/StoreService.ts';
 import { Item, SupportedOS } from '#core/types/core.types.ts';
 import { DesktopOperatingSystem } from '#shared/types/device.types.ts';
 import { ItemType, SharedItem } from '#shared/types/item.types.ts';
@@ -60,4 +61,16 @@ export async function showDialogItemSelection(type: ItemType): Promise<string[]>
     ],
   });
   return result.filePaths;
+}
+
+export function windowBackgroundColor(): string {
+  const theme = storeService.getTheme();
+  let isDark: boolean;
+  if (theme === 'auto') {
+    isDark = nativeTheme.shouldUseDarkColors;
+  } else {
+    isDark = theme === 'dark';
+  }
+  // vue theme colors, from src/ui/src/style.css
+  return isDark ? '#0a0a0a' : '#ffffff';
 }

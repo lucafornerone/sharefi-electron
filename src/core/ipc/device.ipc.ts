@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron';
+import { IpcMainInvokeEvent, ipcMain } from 'electron';
 import { deviceSettings, osIp, updateDeviceSettings } from '#core/lib/device.ts';
 import { networkConnectionType } from '#core/lib/network.ts';
 import { itemService } from '#core/services/ItemService.ts';
@@ -35,9 +35,12 @@ export function registerDeviceOsIpIpc() {
 }
 
 export function registerDeviceUpdateSettingsIpc() {
-  ipcMain.handle(Ipc.DeviceUpdateSettings, (_event, settings: DeviceSettings) => {
-    return updateDeviceSettings(settings);
-  });
+  ipcMain.handle(
+    Ipc.DeviceUpdateSettings,
+    (event: IpcMainInvokeEvent, settings: DeviceSettings) => {
+      return updateDeviceSettings(event, settings);
+    }
+  );
 }
 
 export function registerDeviceSharesIpc() {
