@@ -61,6 +61,14 @@
   </supports>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="1.0.6" date="2026-11-19">
+      <description>
+        <ul>
+          <li>fix: set backgroundColor to electron window to avoid white glitch on startup</li>
+          <li>fix: properly display file info when it has no extension</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.5" date="2026-10-28">
       <description>
         <ul>
